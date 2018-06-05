@@ -1,3 +1,3 @@
 # sactive-web
 
-A web framework with dependency injection for nodejs.
+A dependency injection web framework for nodejs.
