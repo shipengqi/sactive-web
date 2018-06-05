@@ -1,0 +1,27 @@
+{
+  "name": "sactive-web",
+  "version": "1.0.0",
+  "description": "A dependency injection web framework for nodejs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sactive/sactive-web.git"
+  },
+  "keywords": [
+    "web",
+    "framework",
+    "dependency injection"
+  ],
+  "author": "pooky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sactive/sactive-web/issues"
+  },
+  "homepage": "https://github.com/sactive/sactive-web#readme",
+  "dependencies": {
+    "koa": "^2.5.1"
+  }
+}
