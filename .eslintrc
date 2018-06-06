@@ -1,3 +1,13 @@
 {
-  "extends": "sactive"
+  "extends": "sactive",
+  "rules": {
+    "space-unary-ops":
+      ["error", {
+        "words": true,
+        "nonwords": true,
+        "overrides": {
+          "!": false
+        }
+      }]
+  }
 }
