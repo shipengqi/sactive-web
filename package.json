@@ -24,7 +24,9 @@
   "homepage": "https://github.com/sactive/sactive-web#readme",
   "dependencies": {
     "@captemulation/get-parameter-names": "^1.2.0",
+    "extend": "^3.0.1",
     "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
