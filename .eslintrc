@@ -8,6 +8,13 @@
         "overrides": {
           "!": false
         }
-      }]
+      }],
+    "no-useless-call": 0,
+    "space-before-function-paren": ["error", {
+      "anonymous": "never",
+      "named": "never",
+      "asyncArrow": "ignore"
+    }],
+    "no-return-await": 0
   }
 }

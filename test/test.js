@@ -1,9 +1,12 @@
 
 let t = require('lodash');
 let i = [];
-function test(i) {
-  console.log(t.isPlainObject({hello: function() {
-
-    }}))
+let hello = () => {
+  return 'hello';
+};
+async function test(i) {
+  let result = await hello();
+  console.log(result);
 }
-test()
+
+test();
