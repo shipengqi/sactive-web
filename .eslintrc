@@ -14,7 +14,6 @@
       "anonymous": "never",
       "named": "never",
       "asyncArrow": "ignore"
-    }],
-    "no-return-await": 0
+    }]
   }
 }

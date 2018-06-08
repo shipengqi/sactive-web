@@ -2,11 +2,13 @@
 let t = require('lodash');
 let i = [];
 let hello = () => {
+  console.log('hello');
   return 'hello';
 };
 async function test(i) {
-  let result = await hello();
-  console.log(result);
+  return hello();
 }
 
-test();
+test().then(res => {
+  console.log('-' + res)
+})
