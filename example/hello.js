@@ -14,4 +14,4 @@ app.route(example1);
 app.load(`${__dirname}/routes`);
 
 app.init();
-app.listen('9000');
+app.listen(9000);
