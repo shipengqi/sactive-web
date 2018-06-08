@@ -14,6 +14,7 @@
       "anonymous": "never",
       "named": "never",
       "asyncArrow": "ignore"
-    }]
+    }],
+    "new-cap": ["error", { "newIsCap": false }]
   }
 }
