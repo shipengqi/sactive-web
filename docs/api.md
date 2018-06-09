@@ -1,10 +1,12 @@
 <a name="Application"></a>
 
-## Application
+## Application ⇐ <code>Koa</code>
+Initialize a new `Application`.
+
 **Kind**: global class  
-**Api**: public  
+**Extends**: <code>Koa</code>  
 <a name="new_Application_new"></a>
 
 ### new Application()
-Initialize a new `Application`.
+Initialize a new `Application`.Inherits from Koa.
 
