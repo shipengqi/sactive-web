@@ -6,7 +6,7 @@ Create a new `Application`.Inherits from Koa.
 **Kind**: global class  
 **Extends**: <code>Koa</code>  
 **Access**: public  
-**See**: [https://koa.bootcss.com/](https://koa.bootcss.com/)  
+**See**: [https://koajs.com/](https://koajs.com/)  
 
 * [Application](#Application) ⇐ <code>Koa</code>
     * [.route(routerDefine)](#Application+route)
