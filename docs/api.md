@@ -6,6 +6,7 @@ Create a new `Application`.Inherits from Koa.
 **Kind**: global class  
 **Extends**: <code>Koa</code>  
 **Access**: public  
+**See**: [https://koa.bootcss.com/](https://koa.bootcss.com/)  
 
 * [Application](#Application) ⇐ <code>Koa</code>
     * [.route(routerDefine)](#Application+route)
@@ -15,8 +16,8 @@ Create a new `Application`.Inherits from Koa.
     * [.bindClass(name, instance)](#Application+bindClass) ⇒ <code>InstanceWrapper</code>
     * [.bindFunction(name, instance)](#Application+bindFunction) ⇒ <code>InstanceWrapper</code>
     * [.bindInstance(name, instance)](#Application+bindInstance) ⇒ <code>InstanceWrapper</code>
-    * [.getInstance(name)](#Application+getInstance) ⇒ <code>any</code>
-    * [.getInstances(names)](#Application+getInstances) ⇒ <code>Array.&lt;any&gt;</code>
+    * [.getInstance(name)](#Application+getInstance) ⇒ <code>\*</code>
+    * [.getInstances(names)](#Application+getInstances) ⇒ <code>Array.&lt;\*&gt;</code>
     * [.deleteInstance(name)](#Application+deleteInstance)
     * [.deleteInstances(names)](#Application+deleteInstances)
 
@@ -104,15 +105,15 @@ Bind Instance.
 | Param | Type | Description |
 | --- | --- | --- |
 | name | <code>String</code> | The name of the injected function. |
-| instance | <code>any</code> | Injected instance. |
+| instance | <code>\*</code> | Injected instance. |
 
 <a name="Application+getInstance"></a>
 
-### application.getInstance(name) ⇒ <code>any</code>
+### application.getInstance(name) ⇒ <code>\*</code>
 Get Instance.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
-**Returns**: <code>any</code> - - instance.  
+**Returns**: <code>\*</code> - - instance.  
 **Access**: public  
 
 | Param | Type | Description |
@@ -121,11 +122,11 @@ Get Instance.
 
 <a name="Application+getInstances"></a>
 
-### application.getInstances(names) ⇒ <code>Array.&lt;any&gt;</code>
+### application.getInstances(names) ⇒ <code>Array.&lt;\*&gt;</code>
 Get Instance.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
-**Returns**: <code>Array.&lt;any&gt;</code> - - instances.  
+**Returns**: <code>Array.&lt;\*&gt;</code> - - instances.  
 **Access**: public  
 
 | Param | Type | Description |
