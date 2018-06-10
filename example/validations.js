@@ -7,9 +7,21 @@ let example1 = {
   handler: (ctx, next) => {
     ctx.body = `Hello, ${ctx.params.id}!!!`;
   },
+  paramNormalizations: {
+    id: function(value) {
+      return Number(value);
+    }
+  },
   paramValidations: {
     id: {
-      required: true
+      required: false,
+      handler: function(value) {
+        if (typeof (value) === 'string') {
+          console.log('value is string');
+          return false;
+        }
+        return true;
+      }
     }
   }
 };
@@ -20,3 +32,6 @@ app.load(`${__dirname}/routes`);
 
 app.init();
 app.listen(9000);
+app.on('error', e => {
+  console.log(e);
+});
