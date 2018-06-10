@@ -8,13 +8,13 @@ A dependency injection web framework for nodejs.
 
 - prefix
 - response
-- wiki
- - home: usage
- - api application
- - route
- - di
-- jsdoc script
 - unit test
+- jsdoc script
+- wiki
+  - home: usage
+  - api application
+  - route
+  - di
 - travis ci
 
 ## Debug
