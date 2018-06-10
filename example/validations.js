@@ -4,7 +4,7 @@ let example1 = {
   name: 'hello',
   method: 'get',
   path: '/users/:id',
-  handler: (ctx, next) => {
+  handler: async (ctx, next) => {
     ctx.body = `Hello, ${ctx.params.id}!!!`;
   },
   paramNormalizations: {
