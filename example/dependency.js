@@ -30,7 +30,6 @@ let example1 = {
 let app = new AsctiveWeb();
 app.bindInstance('test1', {name: 'xiaoming'});
 app.bindInstance('test2', {name: 'xiaoqiang'});
-console.log(app.getInstances(['$$test1', '$$test2']));
 app.route(example1);
 app.load(`${__dirname}/routes`);
 

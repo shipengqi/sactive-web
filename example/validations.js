@@ -4,7 +4,7 @@ let example1 = {
   name: 'hello',
   method: 'get',
   path: '/users/:id',
-  handler: async (ctx, next) => {
+  handler: async function(ctx, next) {
     ctx.body = `Hello, ${ctx.params.id}!!!`;
   },
   paramNormalizations: {
@@ -26,7 +26,7 @@ let example1 = {
   }
 };
 
-let app = new AsctiveWeb();
+let app = new AsctiveWeb({logLevel: 'info'});
 app.route(example1);
 app.load(`${__dirname}/routes`);
 
