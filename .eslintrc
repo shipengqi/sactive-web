@@ -1,20 +1,3 @@
 {
-  "extends": "sactive",
-  "rules": {
-    "space-unary-ops":
-      ["error", {
-        "words": true,
-        "nonwords": true,
-        "overrides": {
-          "!": false
-        }
-      }],
-    "no-useless-call": 0,
-    "space-before-function-paren": ["error", {
-      "anonymous": "never",
-      "named": "never",
-      "asyncArrow": "ignore"
-    }],
-    "new-cap": ["error", { "newIsCap": false }]
-  }
+  "extends": "sactive"
 }
