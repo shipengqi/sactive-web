@@ -6,7 +6,6 @@ A dependency injection web framework for nodejs.
 
 ## TODO
 
-- prefix
 - response
 - unit test
 - jsdoc script
