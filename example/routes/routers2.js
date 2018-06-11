@@ -4,7 +4,7 @@ module.exports = function() {
       name: 'demo2-route1',
       method: 'get',
       path: '/demo2/route1',
-      handler: (ctx, next) => {
+      handler: function(ctx, next) {
         ctx.body = 'Hello demo2-route1 !!!';
       }
     },
@@ -12,7 +12,7 @@ module.exports = function() {
       name: 'demo2-route2',
       method: 'get',
       path: '/demo2/route2',
-      handler: (ctx, next) => {
+      handler: function(ctx, next) {
         ctx.body = 'Hello demo2-route2 !!!';
       }
     }

@@ -27,6 +27,7 @@
     "@captemulation/get-parameter-names": "^1.2.0",
     "debug": "^3.1.0",
     "extend": "^3.0.1",
+    "isarrow": "^1.0.0",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.10"

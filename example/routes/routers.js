@@ -1,9 +1,9 @@
 module.exports = [
   {
     name: 'demo1-route1',
-    method: 'get',
+    method: null,
     path: '/demo1/route1',
-    handler: (ctx, next) => {
+    handler: function(ctx, next) {
       ctx.body = 'Hello demo1-route1 !!!';
     }
   },
@@ -11,7 +11,7 @@ module.exports = [
     name: 'demo1-route2',
     method: 'get',
     path: '/demo1/route2',
-    handler: (ctx, next) => {
+    handler: function(ctx, next) {
       ctx.body = 'Hello demo1-route2 !!!';
     }
   }

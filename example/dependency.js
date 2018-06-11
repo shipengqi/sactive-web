@@ -4,9 +4,10 @@ let example1 = {
   name: 'hello',
   method: 'get',
   path: '/users/:id',
-  handler: async (ctx, next) => {
-    ctx.body = `Hello, ${ctx.params.id}!!!`;
+  handler: async function(ctx, next) {
+    ctx.body = `Hello, ${this.$$test2.name}!!!`;
   },
+  dependencies: ['$$test1', '$$test2'],
   paramNormalizations: {
     id: function(value) {
       return Number(value);
@@ -27,6 +28,9 @@ let example1 = {
 };
 
 let app = new AsctiveWeb();
+app.bindInstance('test1', {name: 'xiaoming'});
+app.bindInstance('test2', {name: 'xiaoqiang'});
+console.log(app.getInstances(['$$test1', '$$test2']));
 app.route(example1);
 app.load(`${__dirname}/routes`);
 

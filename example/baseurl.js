@@ -4,7 +4,7 @@ let example1 = {
   name: 'hello',
   method: 'get',
   path: '/example/hello',
-  handler: (ctx, next) => {
+  handler: function(ctx, next) {
     ctx.body = 'Hello SActive !!!';
   }
 };
