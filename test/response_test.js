@@ -28,7 +28,7 @@ describe('Response tests', function () {
         });
     });
 
-    it('Should get 404', function (done) {
+    it('Should get 404 with error template', function (done) {
       const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo1-404',
@@ -50,6 +50,53 @@ describe('Response tests', function () {
             'code': 404,
             'msg': 'Not Found: Template notfound.pug not existed'
           });
+          done();
+        });
+    });
+    it('Should get 404 without tempalte', function (done) {
+      const app = new SactiveWeb();
+      app.route({
+        name: 'demo1-404',
+        method: 'get',
+        path: '/demo1/route4',
+        template: `notfound.pug`,
+        handler: function(ctx, next) {
+          return {'name': 'xiaoming'};
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo1/route4')
+        .expect(404)
+        .end(function (err, res) {
+          expect(res.body).to.eql({
+            'code': 404,
+            'msg': 'Not Found: Template notfound.pug not existed'
+          });
+          done();
+        });
+    });
+
+    it('Should render html successfully', function (done) {
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
+      app.route({
+        name: 'demo-render',
+        method: 'get',
+        path: '/demo/render',
+        template: `test.pug`,
+        handler: function(ctx, next) {
+          return {'name': 'xiaoming'};
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo/render')
+        .expect(200)
+        .end(function (err, res) {
           done();
         });
     });
