@@ -17,7 +17,6 @@ let example1 = {
       required: false,
       handler: function(value) {
         if (typeof (value) === 'string') {
-          console.log('value is string');
           return false;
         }
         return true;
