@@ -6,7 +6,7 @@ const {expect} = require('chai');
 describe('Application tests', function () {
 
   describe('App.route tests', function () {
-    it('should get response: {name: xiaoming}, url: /demo1/route1', function (done) {
+    it('Should get response: {name: xiaoming}, url: /demo1/route1', function (done) {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-route1',
@@ -27,7 +27,7 @@ describe('Application tests', function () {
           done();
         });
     });
-    it('should get response html, url: /demo1/route1', (done) => {
+    it('Should get response html, url: /demo1/route1', (done) => {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-route1',
@@ -50,7 +50,7 @@ describe('Application tests', function () {
     });
   });
   describe('App.load tests', function () {
-    it('should get response html, url: /array/route', (done) => {
+    it('Should get response html, url: /array/route', (done) => {
       const app = new SactiveWeb();
       app.loadFile(`${__dirname}/mock`, `routers.js`);
       app.init();
@@ -64,7 +64,7 @@ describe('Application tests', function () {
           done();
         });
     });
-    it('should get response, url: /func/route/:id', (done) => {
+    it('Should get response, url: /func/route/:id', (done) => {
       const app = new SactiveWeb();
       app.load(`${__dirname}/mock`);
       app.init();
