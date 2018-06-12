@@ -1,4 +1,4 @@
-const AsctiveWeb = require('../lib/application');
+const SactiveWeb = require('../lib/application');
 
 let example1 = {
   name: 'hello',
@@ -27,7 +27,7 @@ let example1 = {
   }
 };
 
-let app = new AsctiveWeb();
+let app = new SactiveWeb();
 app.bindInstance('test1', {name: 'xiaoming'});
 app.bindInstance('test2', {name: 'xiaoqiang'});
 app.route(example1);

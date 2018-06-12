@@ -1,4 +1,4 @@
-const AsctiveWeb = require('../lib/application');
+const SactiveWeb = require('../lib/application');
 
 let example1 = {
   name: 'hello',
@@ -25,7 +25,7 @@ let example1 = {
   }
 };
 
-let app = new AsctiveWeb({logLevel: 'info'});
+let app = new SactiveWeb({logLevel: 'info'});
 app.route(example1);
 app.load(`${__dirname}/routes`);
 

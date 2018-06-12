@@ -24,7 +24,6 @@ describe('Response tests', function () {
         .get('/demo/render')
         .expect(200)
         .end(function (err, res) {
-          console.log(res.body, res.status);
           done();
         });
     });

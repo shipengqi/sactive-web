@@ -1,4 +1,4 @@
-const AsctiveWeb = require('../lib/application');
+const SactiveWeb = require('../lib/application');
 
 let example1 = {
   name: 'hello',
@@ -9,7 +9,7 @@ let example1 = {
   }
 };
 
-let app = new AsctiveWeb({baseUrl: '/api/test'});
+let app = new SactiveWeb({baseUrl: '/api/test'});
 app.route(example1);
 app.load(`${__dirname}/routes`);
 
