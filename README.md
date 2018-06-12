@@ -6,8 +6,8 @@ A dependency injection web framework for nodejs.
 
 ## TODO
 
-- response
 - unit test
+  - coverage
 - jsdoc script
 - wiki
   - home: usage
@@ -15,3 +15,4 @@ A dependency injection web framework for nodejs.
   - route
   - di
 - travis ci
+  - icons
