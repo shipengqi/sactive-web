@@ -1,6 +1,6 @@
 const SactiveWeb = require('../lib/application');
 
-const app = new SactiveWeb({viewPath: `${__dirname}/template`});
+const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
 app.route({
   name: 'demo-render',
   method: 'get',

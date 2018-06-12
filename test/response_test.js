@@ -7,7 +7,7 @@ describe('Response tests', function () {
   describe('Html response tests', function () {
 
     it('Should render successfully', function (done) {
-      const app = new SactiveWeb({viewPath: `${__dirname}/template`});
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo-render',
         method: 'get',
@@ -29,11 +29,12 @@ describe('Response tests', function () {
     });
 
     it('Should get 404', function (done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo1-404',
         method: 'get',
         path: '/demo1/route4',
+        template: `notfound.pug`,
         handler: function(ctx, next) {
           return {'name': 'xiaoming'};
         }
@@ -47,7 +48,7 @@ describe('Response tests', function () {
         .end(function (err, res) {
           expect(res.body).to.eql({
             'code': 404,
-            'msg': 'Not Found: Template undefined not existed'
+            'msg': 'Not Found: Template notfound.pug not existed'
           });
           done();
         });
