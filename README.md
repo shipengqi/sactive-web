@@ -1,13 +1,12 @@
 # sactive-web
 
-A dependency injection web framework for nodejs.
+A dependency injection web framework for Node.js.
 
 [![NPM](https://nodei.co/npm/sactive-web.png?downloads=true)](https://nodei.co/npm/sactive-web/)
 
 ## TODO
 
-- unit test
-  - coverage
+- unit test coverage
 - jsdoc script
 - wiki
   - home: usage
