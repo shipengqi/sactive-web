@@ -4,7 +4,7 @@
   "description": "A dependency injection web framework for nodejs.",
   "main": "lib/application.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --bail --exit",
     "lint": "eslint .",
     "build:doc": "./node_modules/.bin/jsdoc2md ./lib/* > ./docs/api.md"
   },
@@ -44,6 +44,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2"
+    "nyc": "^12.0.2",
+    "supertest": "^3.1.0"
   }
 }
