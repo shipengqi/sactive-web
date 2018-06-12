@@ -2,11 +2,9 @@ const SactiveWeb = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
 
-describe('Response tests', function () {
-
-  describe('Html response tests', function () {
-
-    it('Should render successfully', function (done) {
+describe('Response tests', function() {
+  describe('Html response tests', function() {
+    it('Should render successfully', function(done) {
       const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo-render',
@@ -23,12 +21,12 @@ describe('Response tests', function () {
       request(server)
         .get('/demo/render')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           done();
         });
     });
 
-    it('Should get 404 with error template', function (done) {
+    it('Should get 404 with error template', function(done) {
       const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo1-404',
@@ -45,7 +43,7 @@ describe('Response tests', function () {
       request(server)
         .get('/demo1/route4')
         .expect(404)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             'code': 404,
             'msg': 'Not Found: Template notfound.pug not existed'
@@ -53,7 +51,7 @@ describe('Response tests', function () {
           done();
         });
     });
-    it('Should get 404 without tempalte', function (done) {
+    it('Should get 404 without tempalte', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-404',
@@ -70,7 +68,7 @@ describe('Response tests', function () {
       request(server)
         .get('/demo1/route4')
         .expect(404)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             'code': 404,
             'msg': 'Not Found: Template notfound.pug not existed'
@@ -79,7 +77,7 @@ describe('Response tests', function () {
         });
     });
 
-    it('Should render html successfully', function (done) {
+    it('Should render html successfully', function(done) {
       const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
       app.route({
         name: 'demo-render',
@@ -96,15 +94,14 @@ describe('Response tests', function () {
       request(server)
         .get('/demo/render')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           done();
         });
     });
   });
 
-  describe('Json response tests', function () {
-
-    it('Should get json response', function (done) {
+  describe('Json response tests', function() {
+    it('Should get json response', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-route1',
@@ -121,7 +118,7 @@ describe('Response tests', function () {
         .get('/demo1/route1')
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 200,
             data: {'name': 'xiaoming'},
@@ -131,7 +128,7 @@ describe('Response tests', function () {
         });
     });
 
-    it('Should get json error response', function (done) {
+    it('Should get json error response', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-route1',
@@ -150,7 +147,7 @@ describe('Response tests', function () {
         .get('/demo1/route1')
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 504,
             msg: 'test'

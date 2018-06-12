@@ -2,11 +2,10 @@ const SactiveWeb = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
 
+describe('Application tests', function() {
 
-describe('Application tests', function () {
-
-  describe('App.route tests', function () {
-    it('Should get response: {name: xiaoming}, url: /demo1/route1', function (done) {
+  describe('App.route tests', function() {
+    it('Should get response: {name: xiaoming}, url: /demo1/route1', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'demo1-route1',
@@ -22,7 +21,7 @@ describe('Application tests', function () {
       request(server)
         .get('/demo1/route1')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({'name': 'xiaoming'});
           done();
         });
@@ -40,40 +39,40 @@ describe('Application tests', function () {
       app.init();
       const server = app.listen();
 
-      let res = request(server)
+      request(server)
         .get('/demo1/route1')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({});
           done();
         });
     });
   });
-  describe('App.load tests', function () {
-    it('Should get response html, url: /array/route', (done) => {
+  describe('App.load tests', function() {
+    it('Should get response html, url: /array/route', done => {
       const app = new SactiveWeb();
       app.loadFile(`${__dirname}/mock`, `routers.js`);
       app.init();
       const server = app.listen();
 
-      let res = request(server)
+      request(server)
         .get('/array/route')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({});
           done();
         });
     });
-    it('Should get response, url: /func/route/:id', (done) => {
+    it('Should get response, url: /func/route/:id', done => {
       const app = new SactiveWeb();
       app.load(`${__dirname}/mock`);
       app.init();
       const server = app.listen();
 
-      let res = request(server)
+      request(server)
         .post('/func/route/2')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: '200',
             data: {

@@ -3,10 +3,9 @@ const request = require('supertest');
 const {expect} = require('chai');
 
 
-describe('Route tests', function () {
-
-  describe('Route validate tests', function () {
-    it('Should validate params failed with hander and required false', function (done) {
+describe('Route tests', function() {
+  describe('Route validate tests', function() {
+    it('Should validate params failed with hander and required false', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -34,7 +33,7 @@ describe('Route tests', function () {
         .get('/demo/validate/666')
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 400,
             msg: 'Validate failed, reason: Key: id, value: 666.'
@@ -43,7 +42,7 @@ describe('Route tests', function () {
         });
     });
 
-    it('Should validate query failed with hander and required false', function (done) {
+    it('Should validate query failed with hander and required false', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -72,7 +71,7 @@ describe('Route tests', function () {
         .query({ id: 'edit'})
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 400,
             msg: 'Validate failed, reason: Key: id, value: edit.'
@@ -81,7 +80,7 @@ describe('Route tests', function () {
         });
     });
 
-    it('Should validate data failed with hander and required false', function (done) {
+    it('Should validate data failed with hander and required false', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -110,7 +109,7 @@ describe('Route tests', function () {
         .send({id: 'edit'})
         .set('accept', 'json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 400,
             msg: 'Validate failed, reason: Key: id, value: edit.'
@@ -119,8 +118,8 @@ describe('Route tests', function () {
         });
     });
   });
-  describe('Route nomarlize tests', function () {
-    it('Should validate params successfully with nomarlization', function (done) {
+  describe('Route nomarlize tests', function() {
+    it('Should validate params successfully with nomarlization', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -159,7 +158,7 @@ describe('Route tests', function () {
         });
     });
 
-    it('Should validate query successfully with nomarlization', function (done) {
+    it('Should validate query successfully with nomarlization', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -199,7 +198,7 @@ describe('Route tests', function () {
         });
     });
 
-    it('Should validate data successfully with hander and required false', function (done) {
+    it('Should validate data successfully with hander and required false', function(done) {
       const app = new SactiveWeb();
       app.route({
         name: 'hello',
@@ -233,14 +232,14 @@ describe('Route tests', function () {
         .send({id: 'edit'})
         .set('accept', 'json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({code: 200, msg: 'success.', data: {name: 'xiaoming'}});
           done();
         });
     });
   });
-  describe('Route dependency tests', function () {
-    it('Add route with object dependency', function (done) {
+  describe('Route dependency tests', function() {
+    it('Add route with object dependency', function(done) {
       const app = new SactiveWeb();
       app.bindInstance('test1', {name: 'xiaoming'});
       app.route({
@@ -259,17 +258,17 @@ describe('Route tests', function () {
         .get('/demo/dependency')
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 200,
-            data:  `Hello, xiaoming!!!`,
+            data: 'Hello, xiaoming!!!',
             msg: 'success.'
           });
           done();
         });
     });
 
-    it('Add route with class dependency', function (done) {
+    it('Add route with class dependency', function(done) {
       class Student {
         constructor($$test1) {
           this.name = 'xiaoqiang';
@@ -295,10 +294,10 @@ describe('Route tests', function () {
         .get('/demo/dependency')
         .set('content-type', 'application/json')
         .expect(200)
-        .end(function (err, res) {
+        .end(function(err, res) {
           expect(res.body).to.eql({
             code: 200,
-            data:  ['xiaoming', 'xiaoqiang'],
+            data: ['xiaoming', 'xiaoqiang'],
             msg: 'success.'
           });
           done();
