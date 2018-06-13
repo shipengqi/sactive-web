@@ -61,3 +61,5 @@ typings/
 .next
 .idea
 *.lock
+.myc
+coverage

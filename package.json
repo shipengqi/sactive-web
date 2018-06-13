@@ -4,8 +4,9 @@
   "description": "A dependency injection web framework for nodejs.",
   "main": "lib/application.js",
   "scripts": {
-    "test": "mocha --bail --exit",
     "lint": "eslint .",
+    "test": "mocha --require babel-register --check-leaks --bail --exit",
+    "test:coverage": "nyc --reporter=html --reporter=text mocha --require babel-register --check-leaks --bail --exit",
     "build:doc": "./docs.sh"
   },
   "repository": {
@@ -36,6 +37,7 @@
     "pug": "^2.0.3"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-sactive": "^2.0.0",
