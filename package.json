@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --bail --exit",
     "lint": "eslint .",
-    "build:doc": "./node_modules/.bin/jsdoc2md ./lib/* > ./docs/api.md"
+    "build:doc": "./docs.sh"
   },
   "repository": {
     "type": "git",
