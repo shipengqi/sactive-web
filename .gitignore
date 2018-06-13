@@ -61,5 +61,5 @@ typings/
 .next
 .idea
 *.lock
-.myc
+.nyc*
 coverage

@@ -86,7 +86,7 @@ npm install
 npm test
 
 #coverage
-npm run test:coverage
+npm run test:cov
 ```
 [npm-image]: https://img.shields.io/npm/v/sactive-web.svg
 [npm-url]: https://www.npmjs.com/package/sactive-web
