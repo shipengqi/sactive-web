@@ -2,7 +2,8 @@ const SactiveWeb = require('../lib/application');
 
 const app = new SactiveWeb({
   view: {path: `${__dirname}/template`},
-  options: {map: { html: 'underscore' }}
+  options: {map: { html: 'underscore' }},
+  enableTransform: true
 });
 app.route({
   name: 'demo-render',

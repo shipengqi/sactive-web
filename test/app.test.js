@@ -1,9 +1,26 @@
 const SactiveWeb = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
+let TEST_ROUTE = {
+  name: 'test-route',
+  method: 'get',
+  path: '/test/route',
+  handler: function(ctx, next) {
+    ctx.response.body = {'name': 'xiaoming'};
+  }
+};
 
 describe('Application tests', function() {
-
+  afterEach(function () {
+    TEST_ROUTE = {
+      name: 'test-route',
+      method: 'get',
+      path: '/test/route',
+      handler: function(ctx, next) {
+        ctx.response.body = {'name': 'xiaoming'};
+      }
+    };
+  });
   describe('App.route tests', function() {
     it('Should get response: {name: xiaoming}, url: /demo1/route1', function(done) {
       const app = new SactiveWeb();
@@ -103,6 +120,7 @@ describe('Application tests', function() {
     it('Should get response html, url: /array/route', done => {
       const app = new SactiveWeb();
       app.loadFile(`${__dirname}/mock`, `routers.js`);
+      app.loadFile(`${__dirname}/mock`, `route.json`);
       app.init();
       const server = app.listen();
 
@@ -133,6 +151,134 @@ describe('Application tests', function() {
           });
           done();
         });
+    });
+  });
+  describe('App init tests', function() {
+    it('Should throw an error: ResponseTransform must be a function', () => {
+      try {
+        const app = new SactiveWeb({responseTransform: 'test'});
+      } catch (e) {
+        expect(e.message).to.eql('ResponseTransform must be a function.');
+      }
+    });
+    it('Should throw an error: test-route has been registered', () => {
+      try {
+        const app = new SactiveWeb();
+        app.route(TEST_ROUTE);
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router name: test-route has been registered.');
+      }
+    });
+    it('Should throw an error: Router name must be a string.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.name = null;
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router name must be a string.');
+      }
+    });
+    it('Should throw an error: Router method must be a string.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.method = null;
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router method must be a string.');
+      }
+    });
+    it('Should throw an error: Router path must be a string.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.path = null;
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router path must be a string.');
+      }
+    });
+    it('Should throw an error: Router handler must be a function.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.handler = {test: 666};
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router handler must be a function.');
+      }
+    });
+    it('Should throw an error: Router handler cannot be arrow function.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.handler = () => {
+          return 'test';
+        };
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router handler cannot be arrow function.');
+      }
+    });
+    it('Should throw an error: Dependencies must be an array.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.dependencies = {};
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Dependencies must be an array.');
+      }
+    });
+    it('Should throw an error: Validations must be plain object.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.paramValidations = [];
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Validations must be plain object.');
+      }
+    });
+    it('Should throw an error: Normalizations must be plain object.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.paramNormalizations = [];
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Normalizations must be plain object.');
+      }
+    });
+    it('Should throw an error: Validation must be plain object.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.paramValidations = {
+          id: null
+        };
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Validation must be plain object.');
+      }
+    });
+    it('Should throw an error: Validation handler must be a function.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.paramValidations = {
+          id: {
+            required: false,
+            handler: 'test'
+          }
+        };
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Validation handler must be a function.');
+      }
+    });
+    it('Should throw an error: Normalization handler must be a function.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.paramNormalizations = {
+          id: 'test'
+        };
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Normalization handler must be a function.');
+      }
     });
   });
 });

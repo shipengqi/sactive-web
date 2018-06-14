@@ -68,6 +68,8 @@ describe('Dependency injector tests', function() {
       this.$$injector.bindFunction('test', test);
       this.$$injector.bindFunction('async', asyncFunc);
       this.$$injector.bindFunction('arrow', arrowFunc);
+      this.$$injector.bindInstance('instanced', instance1);
+      this.$$injector.bindInstance('instanced2', instance1);
     });
     after(function() {
       this.$$injector = null;
@@ -96,6 +98,23 @@ describe('Dependency injector tests', function() {
         expect(res).to.eql('test');
         done();
       });
+    });
+    it('Get instances test', function(done) {
+      let res = this.$$injector.getInstances(['$$async', '$$test']);
+      expect(res[1]).to.eql('test');
+      res[0].then(function (result) {
+        expect(result).to.eql('test');
+        done();
+      });
+    });
+    it('Delete instance test', function() {
+      this.$$injector.deleteInstance('$$async');
+      expect(this.$$injector.getInstance('$$async')).to.eql(null);
+    });
+    it('Delete instances test', function() {
+      this.$$injector.deleteInstances(['$$instanced', '$$instanced2']);
+      expect(this.$$injector.getInstance('$$instanced')).to.eql(null);
+      expect(this.$$injector.getInstance('$$instanced2')).to.eql(null);
     });
   });
   describe('Utils tests', function() {
@@ -169,6 +188,56 @@ describe('Dependency injector tests', function() {
       expect(di.pravite.constants.INSTANCE_INJECTOR_NAME).to.eql(
         CONSTANTS_MOCK.INSTANCE_INJECTOR_NAME
       );
+    });
+  });
+  describe('Init tests', function() {
+    it('Should throw an error: Instance name must be a string.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.bindInstance(null, 'test');
+      } catch (e) {
+        expect(e.message).to.eql('Instance name must be a string.');
+      }
+    });
+    it('Should throw an error: Instance cannot be null.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.bindInstance('emptyintance', null);
+      } catch (e) {
+        expect(e.message).to.eql('Instance cannot be null.');
+      }
+    });
+    it('Should throw an error:  router has been bound.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.bindInstance('router', 'test');
+      } catch (e) {
+        expect(e.message).to.eql('Instance name: router has been bound.');
+      }
+    });
+    it('Should throw an error: Instance names must be an array.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.getInstances({});
+      } catch (e) {
+        expect(e.message).to.eql('Instance names must be an array.');
+      }
+    });
+    it('Should throw an error: delete Instance name must be a string.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.deleteInstance({});
+      } catch (e) {
+        expect(e.message).to.eql('Instance name must be a string.');
+      }
+    });
+    it('Should throw an error: delete Instance names must be an array.', function() {
+      try {
+        let injector = new di.Sactive();
+        injector.deleteInstances({});
+      } catch (e) {
+        expect(e.message).to.eql('Instance names must be an array.');
+      }
     });
   });
 });

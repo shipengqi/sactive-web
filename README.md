@@ -16,14 +16,15 @@ npm install sactive-web
 
 ## Features
 
-- Dependency injection
-- Routing
-- Support async Function, common function
-- Parameter validate
-- Query validate
-- FormData validate
-- Response transform
-- Base on [Koa](https://github.com/koajs/koa)
+- Dependency injection.
+- Routing, base on [koa-router](https://github.com/alexmingoia/koa-router).
+- Support async Function, common function.
+- Parameter validate.
+- Query validate.
+- FormData validate.
+- Response transform.
+- Support pug template engine, base on [koa-views](https://github.com/queckezz/koa-views).
+- Base on [Koa](https://github.com/koajs/koa).
 
 > async Function require node 7.6+.
 

@@ -42,6 +42,7 @@ describe('Response tests', function() {
 
       request(server)
         .get('/demo1/route4')
+        .set('Accept', 'text/html')
         .expect(404)
         .end(function(err, res) {
           expect(res.body).to.eql({
@@ -51,10 +52,10 @@ describe('Response tests', function() {
           done();
         });
     });
-    it('Should get 404 without tempalte', function(done) {
+    it('Should get 500 without tempalte', function(done) {
       const app = new SactiveWeb({enableTransform: true});
       app.route({
-        name: 'demo1-404',
+        name: 'demo1-500',
         method: 'get',
         path: '/demo1/route4',
         template: `notfound.pug`,
@@ -67,11 +68,12 @@ describe('Response tests', function() {
 
       request(server)
         .get('/demo1/route4')
-        .expect(404)
+        .set('Accept', 'text/html')
+        .expect(500)
         .end(function(err, res) {
           expect(res.body).to.eql({
-            'code': 404,
-            'msg': 'Not Found: Template notfound.pug not existed'
+            'code': 500,
+            'msg': 'Internal server error, reason: Render failed, config view option first.'
           });
           done();
         });
@@ -152,6 +154,28 @@ describe('Response tests', function() {
             code: 504,
             msg: 'test'
           });
+          done();
+        });
+    });
+    it('Should get json response without enableTransform', function(done) {
+      const app = new SactiveWeb();
+      app.route({
+        name: 'demo1-route1',
+        method: 'get',
+        path: '/demo1/route1',
+        handler: function(ctx, next) {
+          return 'test without enableTransform'
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo1/route1')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.eql({});
           done();
         });
     });
