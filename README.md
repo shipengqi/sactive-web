@@ -19,6 +19,10 @@ npm install sactive-web
 - Dependency injection
 - Routing
 - Support async Function, common function
+- Parameter validate
+- Query validate
+- FormData validate
+- Response transform
 - Base on [Koa](https://github.com/koajs/koa)
 
 > async Function require node 7.6+.

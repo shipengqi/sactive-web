@@ -26,6 +26,57 @@ describe('Application tests', function() {
           done();
         });
     });
+    it('Should get response with enabletransform, url: /demo1/route1', function(done) {
+      const app = new SactiveWeb({enableTransform: true});
+      app.route({
+        name: 'demo1-route1',
+        method: 'get',
+        path: '/demo1/route1',
+        handler: function(ctx, next) {
+          return {'name': 'xiaoming'};
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo1/route1')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.eql({
+            code: 200,
+            data: {'name': 'xiaoming'},
+            msg: 'success.'
+          });
+          done();
+        });
+    });
+    it('Should get response failed with enabletransform, url: /demo1/route1', function(done) {
+      const app = new SactiveWeb({enableTransform: true});
+      app.route({
+        name: 'demo1-route1',
+        method: 'get',
+        path: '/demo1/route1',
+        handler: function(ctx, next) {
+          throw new Error('test');
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo1/route1')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.eql({
+            code: 500,
+            msg: 'test'
+          });
+          done();
+        });
+    });
     it('Should get response html, url: /demo1/route1', (done) => {
       const app = new SactiveWeb();
       app.route({

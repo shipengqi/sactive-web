@@ -5,7 +5,7 @@ const {expect} = require('chai');
 describe('Response tests', function() {
   describe('Html response tests', function() {
     it('Should render successfully', function(done) {
-      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}, enableTransform: true});
       app.route({
         name: 'demo-render',
         method: 'get',
@@ -27,7 +27,7 @@ describe('Response tests', function() {
     });
 
     it('Should get 404 with error template', function(done) {
-      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}, enableTransform: true});
       app.route({
         name: 'demo1-404',
         method: 'get',
@@ -52,7 +52,7 @@ describe('Response tests', function() {
         });
     });
     it('Should get 404 without tempalte', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'demo1-404',
         method: 'get',
@@ -78,7 +78,7 @@ describe('Response tests', function() {
     });
 
     it('Should render html successfully', function(done) {
-      const app = new SactiveWeb({view: {path: `${__dirname}/template`}});
+      const app = new SactiveWeb({view: {path: `${__dirname}/template`}, enableTransform: true});
       app.route({
         name: 'demo-render',
         method: 'get',
@@ -102,7 +102,7 @@ describe('Response tests', function() {
 
   describe('Json response tests', function() {
     it('Should get json response', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'demo1-route1',
         method: 'get',
@@ -129,7 +129,7 @@ describe('Response tests', function() {
     });
 
     it('Should get json error response', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'demo1-route1',
         method: 'get',

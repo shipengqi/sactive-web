@@ -6,7 +6,7 @@ const {expect} = require('chai');
 describe('Route tests', function() {
   describe('Route validate tests', function() {
     it('Should validate params failed with hander and required false', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'get',
@@ -43,7 +43,7 @@ describe('Route tests', function() {
     });
 
     it('Should validate query failed with hander and required false', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'get',
@@ -81,7 +81,7 @@ describe('Route tests', function() {
     });
 
     it('Should validate data failed with hander and required false', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'post',
@@ -120,7 +120,7 @@ describe('Route tests', function() {
   });
   describe('Route nomarlize tests', function() {
     it('Should validate params successfully with nomarlization', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'get',
@@ -159,7 +159,7 @@ describe('Route tests', function() {
     });
 
     it('Should validate query successfully with nomarlization', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'get',
@@ -199,7 +199,7 @@ describe('Route tests', function() {
     });
 
     it('Should validate data successfully with hander and required false', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
         method: 'post',
@@ -240,7 +240,7 @@ describe('Route tests', function() {
   });
   describe('Route dependency tests', function() {
     it('Add route with object dependency', function(done) {
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.bindInstance('test1', {name: 'xiaoming'});
       app.route({
         name: 'hello',
@@ -275,7 +275,7 @@ describe('Route tests', function() {
           this.$$test1 = $$test1;
         }
       }
-      const app = new SactiveWeb();
+      const app = new SactiveWeb({enableTransform: true});
       app.bindClass('student', Student);
       app.bindInstance('test1', {name: 'xiaoming'});
       app.route({
