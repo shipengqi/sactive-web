@@ -1,8 +1,25 @@
 const SactiveWeb = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
+const constants = require('../lib/response_formatter/constants');
+const CONSTANTS_MOCK = {
+  DOWNLOAD_ACCEPT: 'application/x-download',
+  ERROR_CODE: {
+    UNIFIED: 500,
+    NOT_FOUNF: 404,
+    VALIFATE_FAIL: 400
+  },
+  SUCCESS_CODE: {
+    UNIFIED: 200
+  }
+};
 
 describe('Response tests', function() {
+  describe('Constants tests', function() {
+    it('All constant test', function() {
+      expect(CONSTANTS_MOCK).to.eql(constants);
+    });
+  });
   describe('Html response tests', function() {
     it('Should render successfully', function(done) {
       const app = new SactiveWeb({view: {path: `${__dirname}/template`}, enableTransform: true});

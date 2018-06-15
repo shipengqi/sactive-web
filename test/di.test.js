@@ -207,7 +207,7 @@ describe('Dependency injector tests', function() {
         expect(e.message).to.eql('Instance cannot be null.');
       }
     });
-    it('Should throw an error:  router has been bound.', function() {
+    it('Should throw an error: router has been bound.', function() {
       try {
         let injector = new di.Sactive();
         injector.bindInstance('router', 'test');

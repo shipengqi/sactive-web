@@ -117,6 +117,37 @@ describe('Route tests', function() {
           done();
         });
     });
+
+    it('Should catch an validate error', function(done) {
+      const app = new SactiveWeb({enableTransform: true});
+      app.route({
+        name: 'validate-error',
+        method: 'get',
+        path: '/demo/validate/:id',
+        handler: async function(ctx, next) {
+          return ctx.body = `Hello.`;
+        },
+        paramValidations: {
+          id: {
+            required: false,
+            handler: function(value) {
+              throw new Error('test');
+            }
+          }
+        }
+      });
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/demo/validate/666')
+        .set('content-type', 'application/json')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.eql({ code: 400, msg: 'Validate failed, reason: Catch error: test' });
+          done();
+        });
+    });
   });
   describe('Route nomarlize tests', function() {
     it('Should validate params successfully with nomarlization', function(done) {

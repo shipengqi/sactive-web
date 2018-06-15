@@ -1,6 +1,10 @@
 const SactiveWeb = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
+const path = require('path');
+const fs = require('fs');
+const extname = path.extname;
+
 let TEST_ROUTE = {
   name: 'test-route',
   method: 'get',
@@ -153,6 +157,34 @@ describe('Application tests', function() {
         });
     });
   });
+  describe('App download tests', function() {
+    it('Should download file', done => {
+      const app = new SactiveWeb();
+      let example = {
+        name: 'download',
+        method: 'get',
+        path: '/download',
+        handler: async function(ctx, next) {
+          let fpath = __dirname + '/mock/download.json';
+          ctx.type = extname(fpath);
+          return ctx.body = fs.createReadStream(fpath);
+        }
+      };
+
+      app.route(example);
+      app.init();
+      const server = app.listen();
+
+      request(server)
+        .get('/download')
+        .set('Accept', 'application/x-download')
+        .expect(200)
+        .end(function(err, res) {
+          expect(res.body).to.eql({ name: 'sactive-web' });
+          done();
+        });
+    });
+  });
   describe('App init tests', function() {
     it('Should throw an error: ResponseTransform must be a function', () => {
       try {
@@ -278,6 +310,26 @@ describe('Application tests', function() {
         app.route(TEST_ROUTE);
       } catch (e) {
         expect(e.message).to.eql('Normalization handler must be a function.');
+      }
+    });
+    it('Should throw an error: Router middlewares must be an Array.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.middlewares = {
+          id: 'test'
+        };
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Router middlewares must be an Array.');
+      }
+    });
+    it('Should throw an error: Middleware must be a function.', () => {
+      try {
+        const app = new SactiveWeb();
+        TEST_ROUTE.middlewares = ['test'];
+        app.route(TEST_ROUTE);
+      } catch (e) {
+        expect(e.message).to.eql('Middleware must be a function.');
       }
     });
   });

@@ -1,9 +1,10 @@
 const SactiveWeb = require('../lib/application');
 const send = require('koa-send');
 
-let app = new SactiveWeb();
+let app = new SactiveWeb({enableTransform: true});
 
-let example1 = {
+// headers: {Accept: 'application/x-download'}
+let example = {
   name: 'download',
   method: 'get',
   path: '/download',
@@ -13,7 +14,7 @@ let example1 = {
   }
 };
 
-app.route(example1);
+app.route(example);
 
 app.init();
 app.listen(8080);
