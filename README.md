@@ -19,16 +19,16 @@ npm install sactive-web
 - Dependency injection.
 - Routing, base on [koa-router](https://github.com/alexmingoia/koa-router).
 - Support async Function, common function.
-- Parameter validate.
-- Query validate.
-- FormData validate.
+- Parameter validate and normalize.
+- Query validate and normalize.
+- FormData validate and normalize.
 - Response transform.
 - Support pug template engine, base on [koa-views](https://github.com/queckezz/koa-views).
 - Base on [Koa](https://github.com/koajs/koa).
 
 > async Function require node 7.6+.
 
-## Getting started
+## Example
 
 ```javascript
 const SactiveWeb = require('sactive-web');
@@ -50,8 +50,13 @@ app.listen(8080);
 ```
 
 ## Documentation
-- Guide, todo
+- [Getting started 中文文档](https://github.com/sactive/sactive-web/wiki/Getting-started)
+- [Application doc 中文文档](https://github.com/sactive/sactive-web/wiki/Application)
+- [Route doc 中文文档](https://github.com/sactive/sactive-web/wiki/Route)
+- [Response doc 中文文档](https://github.com/sactive/sactive-web/wiki/Response)
 - [API](https://github.com/sactive/sactive-web/wiki/API)
+
+> My English is poor, so my documents are all Chinese.
 
 ## Babel setup
 If you're not using node `v7.6+`, you can use `babel`:
@@ -93,6 +98,10 @@ npm test
 #coverage
 npm run test:cov
 ```
+
+## TODO
+- Engilsh Documentation
+
 [npm-image]: https://img.shields.io/npm/v/sactive-web.svg
 [npm-url]: https://www.npmjs.com/package/sactive-web
 [travis-image]: https://travis-ci.org/sactive/sactive-web.svg?branch=master
