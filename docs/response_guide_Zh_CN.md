@@ -85,7 +85,7 @@ app.listen(8080);
 #### 错误处理
 
 错误处理也会使用下面的响应结构：
-```json
+```javascript
 {
   code: 500,
   data: data,
