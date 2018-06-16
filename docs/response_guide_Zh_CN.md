@@ -23,7 +23,7 @@ app.init();
 使用默认的`responseTransform`方法，可以直接在`handler`中返回`data`，`responseTransform`方法会自己封装响应。
 
 ##### 响应结构
-```json
+```javascript
 {
   code: 200,
   data: data,
