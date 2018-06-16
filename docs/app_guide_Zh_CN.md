@@ -1,5 +1,7 @@
 ## Application 中文文档
 
+`Application`继承了`koa2`的[application](https://koa.bootcss.com/#application)的所有方法。
+
 ### 创建实例
 ```javascript
 const SactiveWeb = require('sactive-web');

@@ -189,4 +189,4 @@ let app = new SactiveWeb();
 app.route(example1);
 ```
 
-你还可以通过`app.router`使用所有`koa-router`的方法。
+你还可以通过`app.router`继承了[koa-router的所有方法](https://github.com/alexmingoia/koa-router)。

@@ -19,7 +19,9 @@ app.route(demo);
 app.init();
 app.listen(8080);
 ```
-这是最简单的例子。定义路由参考[Route章节](https://github.com/sactive/sactive-web/wiki/Route)。
+这是最简单的例子。**`app.init`初始化应用，这个方法必须在注册路由以后调用。**
+`app.listen`方法监听了`8080`端口，现在可以直接在浏览器访问<http://localhost:8080>访问。
+定义路由参考[Route章节](https://github.com/sactive/sactive-web/wiki/Route)。
 
 ### 使用依赖注入
 
@@ -159,11 +161,39 @@ app.init();
 
 
 ### 使用中间件
+#### 应用中间件
 
+使用`app.use()`添加应用接中间件。
+
+```javascript
+let app = new SactiveWeb();
+app.use(async ctx => {
+  ctx.body = 'Hello Sactive !!!';
+});
+
+app.init();
+app.listen(8080);
+```
+
+例如，添加请求响应时间的中间件：
+```javascript
+let app = new SactiveWeb();
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+
+app.init();
+app.listen(8080);
+```
+`sactive-web`基于`koa2`，`app.use`的使用可以参考[koa2的文档](https://koa.bootcss.com/#application)。
+
+#### 路由中间件
 `sactive-web`的路由是基于[koa-router](https://github.com/alexmingoia/koa-router)实现的。使用路由中间件：
 
 ```javascript
-const app = new SactiveWeb();
 const koaBody = require('koa-body');
 
 let example1 = {
