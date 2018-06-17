@@ -23,7 +23,7 @@ npm install sactive-web
 - Query validate and normalize.
 - FormData validate and normalize.
 - Response transform.
-- Support pug template engine, base on [koa-views](https://github.com/queckezz/koa-views).
+- Support pug template engine, based on [koa-views](https://github.com/queckezz/koa-views).
 - Based on [Koa](https://github.com/koajs/koa).
 
 > async Function require node 7.6+.
