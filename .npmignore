@@ -1,0 +1,12 @@
+/docs/
+/node_modules/
+/test/
+/log/
+/examples/
+/.nyc_output/
+/coverage/
+.idea
+*.env
+*.log
+package-lock.json
+*.lock

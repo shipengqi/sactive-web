@@ -1,7 +1,7 @@
 {
   "name": "sactive-web",
-  "version": "2.2.1",
-  "description": "A dependency injection web framework for nodejs.",
+  "version": "2.2.3",
+  "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
     "lint": "eslint .",
