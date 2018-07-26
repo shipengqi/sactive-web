@@ -90,7 +90,7 @@ describe('Response tests', function() {
         .end(function(err, res) {
           expect(res.body).to.eql({
             'code': 500,
-            'msg': 'Internal server error, reason: Render failed, config view option first.'
+            'msg': 'Internal server error, reason: Render failed, config view.path is required.'
           });
           done();
         });
