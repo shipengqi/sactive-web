@@ -1,6 +1,6 @@
 {
   "name": "sactive-web",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
