@@ -50,11 +50,11 @@ app.listen(8080);
 ```
 
 ## Documentation
-- [Getting started 中文文档](https://github.com/sactive/sactive-web/wiki/Getting-started)
-- [Application doc 中文文档](https://github.com/sactive/sactive-web/wiki/Application)
-- [Route doc 中文文档](https://github.com/sactive/sactive-web/wiki/Route)
-- [Response doc 中文文档](https://github.com/sactive/sactive-web/wiki/Response)
-- [API](https://github.com/sactive/sactive-web/wiki/API)
+- [Getting started 中文文档](https://github.com/shipengqi/sactive-web/wiki/Getting-started)
+- [Application doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Application)
+- [Route doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Route)
+- [Response doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Response)
+- [API](https://github.com/shipengqi/sactive-web/wiki/API)
 
 > My English is poor, so my documents are all Chinese.
 
@@ -83,7 +83,7 @@ Add the following to `.babelrc`:
 
 ## Examples
 ```bash
-git clone git@github.com:sactive/sactive-web.git
+git clone git@github.com:shipengqi/sactive-web.git
 cd ./sactive-web
 npm install
 cd ./example
@@ -104,9 +104,9 @@ npm run test:cov
 
 [npm-image]: https://img.shields.io/npm/v/sactive-web.svg
 [npm-url]: https://www.npmjs.com/package/sactive-web
-[travis-image]: https://travis-ci.org/sactive/sactive-web.svg?branch=master
-[travis-url]: https://www.travis-ci.org/sactive/sactive-web
-[cov-image]: https://codecov.io/gh/sactive/sactive-web/branch/master/graph/badge.svg
-[cov-url]: https://codecov.io/gh/sactive/sactive-web
+[travis-image]: https://travis-ci.org/shipengqi/sactive-web.svg?branch=master
+[travis-url]: https://www.travis-ci.org/shipengqi/sactive-web
+[cov-image]: https://codecov.io/gh/shipengqi/sactive-web/branch/master/graph/badge.svg
+[cov-url]: https://codecov.io/gh/shipengqi/sactive-web
 [license-image]: http://img.shields.io/npm/l/sactive-web.svg
 [license-url]: ./LICENSE
