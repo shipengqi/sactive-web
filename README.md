@@ -5,6 +5,7 @@ A dependency injection web framework for Node.js.
 [![Build status][travis-image]][travis-url]
 [![Coverage][cov-image]][cov-url]
 [![NPM version][npm-image]][npm-url]
+[![NPM Download][npm-download]][npm-url]
 [![License][license-image]][license-url]
 
 [![NPM](https://nodei.co/npm/sactive-web.png?downloads=true)](https://nodei.co/npm/sactive-web/)
@@ -108,5 +109,6 @@ npm run test:cov
 [travis-url]: https://www.travis-ci.org/shipengqi/sactive-web
 [cov-image]: https://codecov.io/gh/shipengqi/sactive-web/branch/master/graph/badge.svg
 [cov-url]: https://codecov.io/gh/shipengqi/sactive-web
+[npm-download]: https://img.shields.io/npm/dw/sactive-web.svg?style=flat-square
 [license-image]: http://img.shields.io/npm/l/sactive-web.svg
 [license-url]: ./LICENSE
