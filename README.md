@@ -109,6 +109,6 @@ npm run test:cov
 [travis-url]: https://www.travis-ci.org/shipengqi/sactive-web
 [cov-image]: https://codecov.io/gh/shipengqi/sactive-web/branch/master/graph/badge.svg
 [cov-url]: https://codecov.io/gh/shipengqi/sactive-web
-[npm-download]: https://img.shields.io/npm/dw/sactive-web.svg?style=flat-square
+[npm-download]: https://img.shields.io/npm/dw/sactive-web.svg
 [license-image]: http://img.shields.io/npm/l/sactive-web.svg
 [license-url]: ./LICENSE
