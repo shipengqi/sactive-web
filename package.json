@@ -1,6 +1,6 @@
 {
   "name": "sactive-web",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
@@ -17,7 +17,10 @@
   "keywords": [
     "web",
     "framework",
-    "dependency injection"
+    "dependency injection",
+    "koa",
+    "koa2",
+    "sactive-di"
   ],
   "author": "pooky",
   "license": "MIT",
