@@ -1,14 +1,30 @@
-# sactive-web
+<h1 align="center">
+  SActive Web
+</h1>
 
-A dependency injection web framework for Node.js.
+<h4 align="center">
+  :rocket: A dependency injection web framework for Node.js.
+</h4>
 
-[![Build status][travis-image]][travis-url]
-[![Coverage][cov-image]][cov-url]
-[![NPM version][npm-image]][npm-url]
-[![NPM Download][npm-download]][npm-url]
-[![License][license-image]][license-url]
+<p align="center">
+  <a href="https://www.travis-ci.org/shipengqi/sactive-web">
+    <img alt="Build Status" src="https://img.shields.io/travis/shipengqi/sactive-web/master.svg?style=flat-square">
+  </a>
+  <a href="https://codecov.io/gh/shipengqi/sactive-web">
+    <img alt="Build Status" src="https://img.shields.io/codecov/c/github/shipengqi/sactive-web.svg?style=flat-square">
+  </a>
+  <a href="https://www.npmjs.com/package/sactive-web">
+    <img alt="NPM version" src="https://img.shields.io/npm/v/sactive-web.svg?style=flat-square">
+  </a>
+  <a href="https://www.npmjs.com/package/sactive-web">
+    <img alt="NPM Download" src="https://img.shields.io/npm/dw/sactive-web.svg?style=flat-square">
+  </a>
+  <a href="https://github.com/shipengqi/sactive-web/blob/master/LICENSE">
+    <img alt="License" src="http://img.shields.io/npm/l/sactive-web.svg?style=flat-square">
+  </a>
+</p>
 
-[![NPM](https://nodei.co/npm/sactive-web.png?downloads=true)](https://nodei.co/npm/sactive-web/)
+
 
 ## Installation
 ```bash
@@ -102,13 +118,3 @@ npm run test:cov
 
 ## TODO
 - Engilsh Documentation
-
-[npm-image]: https://img.shields.io/npm/v/sactive-web.svg
-[npm-url]: https://www.npmjs.com/package/sactive-web
-[travis-image]: https://travis-ci.org/shipengqi/sactive-web.svg?branch=master
-[travis-url]: https://www.travis-ci.org/shipengqi/sactive-web
-[cov-image]: https://codecov.io/gh/shipengqi/sactive-web/branch/master/graph/badge.svg
-[cov-url]: https://codecov.io/gh/shipengqi/sactive-web
-[npm-download]: https://img.shields.io/npm/dw/sactive-web.svg
-[license-image]: http://img.shields.io/npm/l/sactive-web.svg
-[license-url]: ./LICENSE
