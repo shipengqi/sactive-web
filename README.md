@@ -67,11 +67,7 @@ app.listen(8080);
 ```
 
 ## Documentation
-- [Getting started 中文文档](https://github.com/shipengqi/sactive-web/wiki/Getting-started)
-- [Application doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Application)
-- [Route doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Route)
-- [Response doc 中文文档](https://github.com/shipengqi/sactive-web/wiki/Response)
-- [API](https://github.com/shipengqi/sactive-web/wiki/API)
+- Refer to the [Document web site](https://www.shipengqi.top/sactive-web).
 
 > My English is poor, so my documents are all Chinese.
 
