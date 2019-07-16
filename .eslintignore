@@ -1,4 +1,6 @@
 /docs/
+/examples/
+/coverage/
 /node_modules/
 /test/
 /dist/
