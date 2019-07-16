@@ -95,6 +95,21 @@ app.route(example1);
 支持所有 [Application](https://github.com/sactive/sactive-web/wiki/Application)的 `config`，
 如果配置该选项，会覆盖 `Application` 的配置。
 
+##### baseUrl
+你可以设置 `baseUrl` 为 `false` 来禁用为该 `router` 添加 `baseUrl`，如：
+```js
+{
+  name: 'login',
+  method: 'get',
+  path: '/login',
+  config: {baseUrl: false},
+  template: 'index.html',
+  handler: function(ctx, next) {
+    return {};
+  }
+}
+```
+
 ### 路由文件
 
 路由文件可以返回一个数组：
