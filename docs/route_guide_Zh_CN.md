@@ -31,7 +31,7 @@ let example1 = {
   dependencies: ['$$student'],
   middlewares: [],
   template： null，
-  options: {},
+  config: {},
   handler: function(ctx, next) {
     return ctx.body = 'Hello SActive !!!';
   }
@@ -91,9 +91,9 @@ app.route(example1);
 渲染页面时的模板。
 参考[Response章节](https://github.com/sactive/sactive-web/wiki/Response)
 
-#### options
-支持所有[Application](https://github.com/sactive/sactive-web/wiki/Application)的`config`，
-如果配置该选项，会覆盖`Application`的配置。
+#### config
+支持所有 [Application](https://github.com/sactive/sactive-web/wiki/Application)的 `config`，
+如果配置该选项，会覆盖 `Application` 的配置。
 
 ### 路由文件
 
