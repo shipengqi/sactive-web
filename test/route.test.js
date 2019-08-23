@@ -5,7 +5,7 @@ const {expect} = require('chai');
 
 describe('Route tests', function() {
   describe('Route validate tests', function() {
-    it('Should validate params failed with hander and required false', function(done) {
+    it('Should validate params failed with handler and required false', function(done) {
       const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
@@ -42,7 +42,7 @@ describe('Route tests', function() {
         });
     });
 
-    it('Should validate query failed with hander and required false', function(done) {
+    it('Should validate query failed with handler and required false', function(done) {
       const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
@@ -80,7 +80,7 @@ describe('Route tests', function() {
         });
     });
 
-    it('Should validate data failed with hander and required false', function(done) {
+    it('Should validate data failed with handler and required false', function(done) {
       const app = new SactiveWeb({enableTransform: true});
       app.route({
         name: 'hello',
