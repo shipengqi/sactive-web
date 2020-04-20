@@ -26,8 +26,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/validate/666')
@@ -63,8 +63,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/validate')
@@ -101,8 +101,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .post('/demo/validate')
@@ -136,8 +136,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/validate/666')
@@ -176,8 +176,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/validate/666')
@@ -215,8 +215,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/validate')
@@ -255,8 +255,8 @@ describe('Route tests', function() {
           }
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .post('/demo/validate')
@@ -282,8 +282,8 @@ describe('Route tests', function() {
         },
         dependencies: ['$$test1']
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/dependency')
@@ -318,8 +318,8 @@ describe('Route tests', function() {
         },
         dependencies: ['$$student', '$$test1']
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/dependency')
@@ -348,8 +348,8 @@ describe('Route tests', function() {
         },
         dependencies: ['$$test1']
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/api/demo/dependency')

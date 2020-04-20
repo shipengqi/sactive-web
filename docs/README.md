@@ -59,11 +59,10 @@ let demo = {
   }
 };
 
-let app = new SactiveWeb();
+let app = new SactiveWeb({port: 8080});
 app.route(demo);
 
-app.init();
-app.listen(8080);
+app.run();
 ```
 
 ## Documentation

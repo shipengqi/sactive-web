@@ -32,8 +32,8 @@ describe('Response tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/render')
@@ -54,8 +54,8 @@ describe('Response tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route4')
@@ -80,8 +80,8 @@ describe('Response tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route4')
@@ -107,8 +107,8 @@ describe('Response tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo/render')
@@ -130,8 +130,8 @@ describe('Response tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -159,8 +159,8 @@ describe('Response tests', function() {
           throw e;
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -184,8 +184,8 @@ describe('Response tests', function() {
           return 'test without enableTransform'
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')

@@ -16,5 +16,4 @@ let example = {
 
 app.route(example);
 
-app.init();
-app.listen(8080);
+app.run(8080);

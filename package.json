@@ -1,6 +1,6 @@
 {
   "name": "sactive-web",
-  "version": "2.2.13",
+  "version": "2.2.15",
   "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
@@ -30,6 +30,15 @@
   "homepage": "https://github.com/shipengqi/sactive-web#readme",
   "dependencies": {
     "@captemulation/get-parameter-names": "^1.2.0",
+    "@uirouter/angularjs": "^1.0.23",
+    "@ux-aspects/ux-aspects": "1.6.4",
+    "angular": "1.7.9",
+    "angular-loader": "1.7.9",
+    "angular-mocks": "1.7.9",
+    "angular-resource": "1.7.9",
+    "angular-sanitize": "1.7.9",
+    "angular-schema-form": "^0.8.13",
+    "angular-translate": "^2.18.1",
     "extend": "^3.0.1",
     "isarrow": "^1.0.0",
     "koa": "^2.5.1",

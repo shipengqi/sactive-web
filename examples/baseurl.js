@@ -13,5 +13,4 @@ let app = new SactiveWeb({baseUrl: '/api/test'});
 app.route(example1);
 app.load(`${__dirname}/routes`);
 
-app.init();
-app.listen(9000);
+app.run(9000);

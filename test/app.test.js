@@ -36,8 +36,8 @@ describe('Application tests', function() {
           ctx.response.body = {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -57,8 +57,8 @@ describe('Application tests', function() {
           return {'name': 'xiaoming'};
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -83,8 +83,8 @@ describe('Application tests', function() {
           throw new Error('test');
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -108,8 +108,8 @@ describe('Application tests', function() {
           ctx.response.body = '<h1>Hello demo1-route1 !!!</h1>';
         }
       });
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/demo1/route1')
@@ -125,8 +125,8 @@ describe('Application tests', function() {
       const app = new SactiveWeb();
       app.loadFile(`${__dirname}/mock`, `routers.js`);
       app.loadFile(`${__dirname}/mock`, `route.json`);
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/array/route')
@@ -139,8 +139,8 @@ describe('Application tests', function() {
     it('Should get response, url: /func/route/:id', done => {
       const app = new SactiveWeb();
       app.load(`${__dirname}/mock`);
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .post('/func/route/2')
@@ -172,8 +172,8 @@ describe('Application tests', function() {
       };
 
       app.route(example);
-      app.init();
-      const server = app.listen();
+
+      const server = app.run(9000);
 
       request(server)
         .get('/download')

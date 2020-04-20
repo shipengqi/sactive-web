@@ -26,7 +26,7 @@ Create a new `Application`.Inherits from Koa.
     * [.route(routerDefine)](#Application+route)
     * [.load(path)](#Application+load)
     * [.loadFile(filepath, filename)](#Application+loadFile)
-    * [.init()](#Application+init)
+    * [.run(port)](#Application+run)
     * [.bindClass(name, instance, opt)](#Application+bindClass) ⇒ <code>InstanceWrapper</code>
     * [.bindFunction(name, instance, opt)](#Application+bindFunction) ⇒ <code>InstanceWrapper</code>
     * [.bindInstance(name, instance, opt)](#Application+bindInstance) ⇒ <code>InstanceWrapper</code>
@@ -80,13 +80,18 @@ Loads route file in path.
 | filepath | <code>String</code> | A String path on the filesystem. |
 | filename | <code>String</code> | A String filename in path on the filesystem. |
 
-<a name="Application+init"></a>
+<a name="Application+run"></a>
 
-### application.init()
-Initialize application routes.
+### application.run(port)
+Run the server.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| port | <code>Number</code> | Server port. |
+
 <a name="Application+bindClass"></a>
 
 ### application.bindClass(name, instance, opt) ⇒ <code>InstanceWrapper</code>

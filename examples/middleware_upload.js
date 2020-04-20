@@ -21,5 +21,4 @@ let example1 = {
 let app = new SactiveWeb();
 app.route(example1);
 
-app.init();
-app.listen(8080);
+app.run(8080);

@@ -15,5 +15,4 @@ app.route({
   }
 });
 
-app.init();
-app.listen(9000);
+app.run(9000);

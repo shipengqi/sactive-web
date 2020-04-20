@@ -59,11 +59,13 @@ let demo = {
   }
 };
 
-let app = new SactiveWeb();
+let app = new SactiveWeb({
+  host: 'localhost',
+  port: 8080
+});
 app.route(demo);
 
-app.init();
-app.listen(8080);
+app.run();
 ```
 
 ## Documentation
@@ -108,7 +110,7 @@ Install the dependencies, then run `npm test`:
 npm install
 npm test
 
-#coverage
+# coverage
 npm run test:cov
 ```
 

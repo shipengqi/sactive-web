@@ -1,6 +1,6 @@
 ## Application 中文文档
 
-`Application`继承了`koa2`的[application](https://koa.bootcss.com/#application)的所有方法。
+`Application` 继承了 `koa2` 的 [application](https://koa.bootcss.com/#application) 的所有方法。
 
 ### 创建实例
 ```javascript
@@ -14,12 +14,18 @@ let app = new SactiveWeb(config);
 
 #### 配置 config
 
+- host: `String`, 默认值是 `localhost`。
+- port: `Number`，默认值是 `8080`。
+- tls: `Object`，配置 `https` 服务，参考 [tls.createSecureContext](https://nodejs.org/docs/latest-v13.x/api/tls.html#tls_tls_createsecurecontext_options)。
+  - cert: `String`。
+  - key: `String`。
+  - ca: `String`。
 - baseUrl: `String`，`baseURL` 将自动加在`route path`前面，默认是`null`。
 - logLevel: `String`，日志输出的级别，默认是`info`。
 - view: `Object`，模板引擎配置，基于`koa-views`。
   - path: `String`，`view`文件夹的路径，默认是空字符串。
-  - options: `Object`，配置模板引擎选项，默认是`{}`。具体配置可参考`koa-views`[官方文档](https://github.com/queckezz/koa-views)
-- responseTransform：`Function`，处理`response`的函数，在`route.handler()`执行后调用。可用来统一处理和封装响应结果。默认是`null`。
+  - options: `Object`，配置模板引擎选项，默认是`{}`。具体配置可参考 `koa-views` [官方文档](https://github.com/queckezz/koa-views)
+- responseTransform：`Function`，处理 `response` 的函数，在 `route.handler()` 执行后调用。可用来统一处理和封装响应结果。默认是`null`。
 **注意，要配合`enableTransform`一起使用，只有`enableTransform`为`true`时，才会启用`responseTransform`方法。**
 - enableTransform：`Boolean`，默认是`false`。配合`enableTransform`一起使用，`enableTransform`为`true`，启用`responseTransform`方法。
 如果`responseTransform`为`null`，则会调用默认的`responseTransform`方法。
@@ -46,6 +52,16 @@ console.log(app.options) // => {baseUrl: '/api', logLevel: 'error'}
 
 ### 实例方法
 
+#### app.run
+启动服务。
+
+```javascript
+let app = new SactiveWeb();
+app.load(`${__dirname}/routes`);
+
+app.run(9000);
+```
+
 #### app.route
 
 注册单个路由方法。
@@ -63,7 +79,7 @@ let example1 = {
 let app = new SactiveWeb();
 app.route(example1);
 ```
-定义路由，参考[Route章节](https://github.com/sactive/sactive-web/wiki/Route)
+定义路由，参考 [Route 章节](https://github.com/sactive/sactive-web/wiki/Route)
 
 #### app.loadFile
 
@@ -72,7 +88,7 @@ app.route(example1);
 ```javascript
 app.loadFile(`${__dirname}/routes/router1.js`);
 ```
-路由，参考[Route章节](https://github.com/sactive/sactive-web/wiki/Route)
+路由，参考 [Route 章节](https://github.com/sactive/sactive-web/wiki/Route)
 
 #### app.load
 
@@ -80,17 +96,6 @@ app.loadFile(`${__dirname}/routes/router1.js`);
 
 ```javascript
 app.load(`${__dirname}/routes`);
-```
-
-#### app.init
-
-初始化实例，在注册路由之后调用。
-
-```javascript
-let app = new SactiveWeb();
-app.load(`${__dirname}/routes`);
-app.init();
-app.listen(9000);
 ```
 
 #### app.bindClass

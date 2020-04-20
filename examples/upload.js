@@ -14,5 +14,4 @@ app.router.post('/upload', koaBody({
   return ctx.body = 'success';
 });
 
-app.init();
-app.listen(8080);
+app.run(8080);
