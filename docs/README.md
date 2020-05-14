@@ -48,31 +48,35 @@ npm install sactive-web
 ## Example
 
 ```javascript
-const SactiveWeb = require('sactive-web');
+const App = require('sactive-web');
 
-let demo = {
-  name: 'hello',
-  method: 'get',
-  path: '/demo/hello',
-  handler: function(ctx, next) {
-    ctx.body = 'Hello SActive !!!';
-  }
-};
+app.bindAny('age', 18);
 
-let app = new SactiveWeb({port: 8080});
-app.route(demo);
+app.use(($ctx, $age, $next, $address) => {
+  console.log('age' + $age);
+  console.log('address', $address);
+  $next();
+});
 
-app.run();
+app.get('/users/:name', ($age, $ctx, $next, $address) => {
+  console.log($ctx.params.name);
+  console.log('age' + $age);
+  console.log('address', $address);
+  $ctx.params.id = 'user1';
+  $next();
+}, ($age, $ctx, $next, $address) => {
+  console.log($ctx.params.name, $ctx.params.id);
+  console.log('age' + $age);
+  console.log('address', $address);
+  $ctx.body = 'hello, ' + $ctx.path;
+});
+
+app.bindAny('address', 'shanghai');
+app.bindFunction('getAddress', $address => {
+  return $address;
+});
+app.listen(8080);
 ```
-
-## Documentation
-- [Getting started 中文文档](get_start_Zh_CN.md)
-- [Application doc 中文文档](app_guide_Zh_CN.md)
-- [Route doc 中文文档](route_guide_Zh_CN.md)
-- [Response doc 中文文档](response_guide_Zh_CN.md)
-- [API](api_docs.md)
-
-> My English is poor, so my documents are all Chinese.
 
 ## Babel setup
 If you're not using node `v7.6+`, you can use `babel`:
@@ -96,13 +100,22 @@ Add the following to `.babelrc`:
 }
 ```
 
+## Debugging
+sactive-web along with many of the libraries it's built with support the __DEBUG__ environment variable from [debug](https://github.com/visionmedia/debug) which provides simple conditional logging.
 
-## Examples
+For example
+to see all sactive-web debugging information just pass `DEBUG=active:*` and upon boot you'll see the list of middleware used, among other things.
 ```bash
-git clone git@github.com:shipengqi/sactive-web.git
-cd ./sactive-web
-npm install
-cd ./example
+  active:di bind class: injector, singleton: true +0ms
+  active:di bind any: age, singleton: true +1ms
+  active:application use - +0ms
+  active:application use - +0ms
+  active:application register get /users/:name +1ms
+  active:application register get /users/ +0ms
+  active:application use - +0ms
+  active:di bind any: address, singleton: true +3ms
+  active:di bind function: getAddress, singleton: true +1ms
+  active:application listen +1ms
 ```
 
 ## Tests
@@ -114,6 +127,3 @@ npm test
 #coverage
 npm run test:cov
 ```
-
-## TODO
-- Engilsh Documentation

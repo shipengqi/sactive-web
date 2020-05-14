@@ -1,6 +1,6 @@
 {
   "name": "sactive-web",
-  "version": "2.3.0",
+  "version": "3.0.0-rc1",
   "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
@@ -32,13 +32,9 @@
     "@captemulation/get-parameter-names": "^1.2.0",
     "debug": "^4.1.1",
     "extend": "^3.0.1",
-    "isarrow": "^1.0.0",
     "koa": "^2.5.1",
-    "koa-body": "^4.0.1",
     "koa-router": "^7.4.0",
-    "koa-views": "^5.2.1",
-    "lodash": "^4.17.10",
-    "pug": "^2.0.3"
+    "methods": "^1.1.2"
   },
   "devDependencies": {
     "babel-register": "^6.26.0",

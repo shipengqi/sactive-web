@@ -1,336 +1,61 @@
-const SactiveWeb = require('..');
+const App = require('..');
 const request = require('supertest');
 const {expect} = require('chai');
-const path = require('path');
-const fs = require('fs');
-const extname = path.extname;
 
-let TEST_ROUTE = {
-  name: 'test-route',
-  method: 'get',
-  path: '/test/route',
-  handler: function(ctx, next) {
-    ctx.response.body = {'name': 'xiaoming'};
-  }
-};
-
+let server = null;
 describe('Application tests', function() {
-  afterEach(function () {
-    TEST_ROUTE = {
-      name: 'test-route',
-      method: 'get',
-      path: '/test/route',
-      handler: function(ctx, next) {
-        ctx.response.body = {'name': 'xiaoming'};
-      }
-    };
-  });
-  describe('App.route tests', function() {
-    it('Should get response: {name: xiaoming}, url: /demo1/route1', function(done) {
-      const app = new SactiveWeb();
-      app.route({
-        name: 'demo1-route1',
-        method: 'get',
-        path: '/demo1/route1',
-        handler: function(ctx, next) {
-          ctx.response.body = {'name': 'xiaoming'};
-        }
+  describe('Router tests', function () {
+    before(function () {
+      const app = new App();
+      app.bindAny('age', 18);
+      app.use(($age, $ctx, $next) => {
+        console.log('app middleware1');
+        console.log('age' + $age);
+        $next();
       });
-
-      const server = app.run(9000);
-
+      app.use(($ctx, $age, $next, $address) => {
+        console.log('app middleware2');
+        console.log('age' + $age);
+        console.log('address', $address);
+        $next();
+      });
+      app.get('/users/:name', function($ctx, $next) {
+        if ($ctx.params.name === 'xiaoming') {
+          $ctx.response.body = {'name': 'xiaoming'};
+          return
+        }
+        $ctx.response.body = {'name': 'unknown'};
+      });
+      app.use(($address, $ctx, $next, $age, $getAddress) => {
+        console.log('app middleware3');
+        console.log('age' + $age);
+        console.log('address', $address);
+        console.log('getAddress', $getAddress);
+        $next();
+      });
+      app.bindAny('address', 'shanghai');
+      app.bindFunction('getAddress', $address => {
+        return $address;
+      });
+      server = app.listen(9000);
+    })
+    it('Should get response: {name: xiaoming}, url: /users/xiaoming', function(done) {
       request(server)
-        .get('/demo1/route1')
+        .get('/users/xiaoming')
         .expect(200)
         .end(function(err, res) {
           expect(res.body).to.eql({'name': 'xiaoming'});
           done();
         });
     });
-    it('Should get response with enabletransform, url: /demo1/route1', function(done) {
-      const app = new SactiveWeb({enableTransform: true});
-      app.route({
-        name: 'demo1-route1',
-        method: 'get',
-        path: '/demo1/route1',
-        handler: function(ctx, next) {
-          return {'name': 'xiaoming'};
-        }
-      });
-
-      const server = app.run(9000);
-
+    it('Should get response: {name: unknown}, url: /users/xiaoqiang', function(done) {
       request(server)
-        .get('/demo1/route1')
-        .set('content-type', 'application/json')
+        .get('/users/xiaoqiang')
         .expect(200)
         .end(function(err, res) {
-          expect(res.body).to.eql({
-            code: 200,
-            data: {'name': 'xiaoming'},
-            msg: 'success.'
-          });
+          expect(res.body).to.eql({'name': 'unknown'});
           done();
         });
     });
-    it('Should get response failed with enabletransform, url: /demo1/route1', function(done) {
-      const app = new SactiveWeb({enableTransform: true});
-      app.route({
-        name: 'demo1-route1',
-        method: 'get',
-        path: '/demo1/route1',
-        handler: function(ctx, next) {
-          throw new Error('test');
-        }
-      });
-
-      const server = app.run(9000);
-
-      request(server)
-        .get('/demo1/route1')
-        .set('content-type', 'application/json')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.body).to.eql({
-            code: 500,
-            msg: 'test'
-          });
-          done();
-        });
-    });
-    it('Should get response html, url: /demo1/route1', (done) => {
-      const app = new SactiveWeb();
-      app.route({
-        name: 'demo1-route1',
-        method: 'get',
-        path: '/demo1/route1',
-        handler: function(ctx, next) {
-          ctx.response.body = '<h1>Hello demo1-route1 !!!</h1>';
-        }
-      });
-
-      const server = app.run(9000);
-
-      request(server)
-        .get('/demo1/route1')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.body).to.eql({});
-          done();
-        });
-    });
-  });
-  describe('App.load tests', function() {
-    it('Should get response html, url: /array/route', done => {
-      const app = new SactiveWeb();
-      app.loadFile(`${__dirname}/mock`, `routers.js`);
-      app.loadFile(`${__dirname}/mock`, `route.json`);
-
-      const server = app.run(9000);
-
-      request(server)
-        .get('/array/route')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.body).to.eql({});
-          done();
-        });
-    });
-    it('Should get response, url: /func/route/:id', done => {
-      const app = new SactiveWeb();
-      app.load(`${__dirname}/mock`);
-
-      const server = app.run(9000);
-
-      request(server)
-        .post('/func/route/2')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.body).to.eql({
-            code: '200',
-            data: {
-              id: '2'
-            },
-            msg: `Hello /func/route: 2 !!!`
-          });
-          done();
-        });
-    });
-  });
-  describe('App download tests', function() {
-    it('Should download file', done => {
-      const app = new SactiveWeb();
-      let example = {
-        name: 'download',
-        method: 'get',
-        path: '/download',
-        handler: async function(ctx, next) {
-          let fpath = __dirname + '/mock/download.json';
-          ctx.type = extname(fpath);
-          return ctx.body = fs.createReadStream(fpath);
-        }
-      };
-
-      app.route(example);
-
-      const server = app.run(9000);
-
-      request(server)
-        .get('/download')
-        .set('Accept', 'application/x-download')
-        .expect(200)
-        .end(function(err, res) {
-          expect(res.body).to.eql({ name: 'sactive-web' });
-          done();
-        });
-    });
-  });
-  describe('App init tests', function() {
-    it('Should throw an error: ResponseTransform must be a function', () => {
-      try {
-        const app = new SactiveWeb({responseTransform: 'test'});
-      } catch (e) {
-        expect(e.message).to.eql('ResponseTransform must be a function.');
-      }
-    });
-    it('Should throw an error: test-route has been registered', () => {
-      try {
-        const app = new SactiveWeb();
-        app.route(TEST_ROUTE);
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router name: test-route has been registered.');
-      }
-    });
-    it('Should throw an error: Router name must be a string.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.name = null;
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router name must be a string.');
-      }
-    });
-    it('Should throw an error: Router method must be a string.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.method = null;
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router method must be a string.');
-      }
-    });
-    it('Should throw an error: Router path must be a string.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.path = null;
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router path must be a string.');
-      }
-    });
-    it('Should throw an error: Router handler must be a function.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.handler = {test: 666};
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router handler must be a function.');
-      }
-    });
-    it('Should throw an error: Router handler cannot be arrow function.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.handler = () => {
-          return 'test';
-        };
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router handler cannot be arrow function.');
-      }
-    });
-    it('Should throw an error: Dependencies must be an array.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.dependencies = {};
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Dependencies must be an array.');
-      }
-    });
-    it('Should throw an error: Validations must be plain object.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.paramValidations = [];
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Validations must be plain object.');
-      }
-    });
-    it('Should throw an error: Normalizations must be plain object.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.paramNormalizations = [];
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Normalizations must be plain object.');
-      }
-    });
-    it('Should throw an error: Validation must be plain object.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.paramValidations = {
-          id: null
-        };
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Validation must be plain object.');
-      }
-    });
-    it('Should throw an error: Validation handler must be a function.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.paramValidations = {
-          id: {
-            required: false,
-            handler: 'test'
-          }
-        };
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Validation handler must be a function.');
-      }
-    });
-    it('Should throw an error: Normalization handler must be a function.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.paramNormalizations = {
-          id: 'test'
-        };
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Normalization handler must be a function.');
-      }
-    });
-    it('Should throw an error: Router middlewares must be an Array.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.middlewares = {
-          id: 'test'
-        };
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Router middlewares must be an Array.');
-      }
-    });
-    it('Should throw an error: Middleware must be a function.', () => {
-      try {
-        const app = new SactiveWeb();
-        TEST_ROUTE.middlewares = ['test'];
-        app.route(TEST_ROUTE);
-      } catch (e) {
-        expect(e.message).to.eql('Middleware must be a function.');
-      }
-    });
-  });
+  })
 });
