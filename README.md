@@ -35,43 +35,44 @@ npm install sactive-web
 
 - Dependency injection.
 - Routing, based on [koa-router](https://github.com/alexmingoia/koa-router).
-- Support async Function, common function.
-- Parameter validate and normalize.
-- Query validate and normalize.
-- FormData validate and normalize.
-- Response transform.
-- Support pug template engine, based on [koa-views](https://github.com/queckezz/koa-views).
 - Based on [Koa](https://github.com/koajs/koa).
-
-> async Function require node 7.6+.
 
 ## Example
 
 ```javascript
-const SactiveWeb = require('sactive-web');
+const App = require('sactive-web');
 
-let demo = {
-  name: 'hello',
-  method: 'get',
-  path: '/demo/hello',
-  handler: function(ctx, next) {
-    ctx.body = 'Hello SActive !!!';
-  }
-};
+app.bindAny('age', 18);
 
-let app = new SactiveWeb({
-  host: 'localhost',
-  port: 8080
+app.use(($ctx, $age, $next, $address) => {
+  console.log('age' + $age);
+  console.log('address', $address);
+  $next();
 });
-app.route(demo);
 
-app.run();
+app.get('/users/:name', ($age, $ctx, $next, $address) => {
+  console.log($ctx.params.name);
+  console.log('age' + $age);
+  console.log('address', $address);
+  $ctx.params.id = 'user1';
+  $next();
+}, ($age, $ctx, $next, $address) => {
+  console.log($ctx.params.name, $ctx.params.id);
+  console.log('age' + $age);
+  console.log('address', $address);
+  $ctx.body = 'hello, ' + $ctx.path;
+});
+
+app.bindAny('address', 'shanghai');
+app.bindFunction('getAddress', $address => {
+  return $address;
+});
+app.listen(8080);
 ```
 
-## Documentation
-- Refer to the [Document web site](https://www.shipengqi.top/sactive-web).
+## API Reference
 
-> My English is poor, so my documents are all Chinese.
+[API Reference](https://www.shipengqi.top/sactive-web) .
 
 ## Babel setup
 If you're not using node `v7.6+`, you can use `babel`:
@@ -95,13 +96,22 @@ Add the following to `.babelrc`:
 }
 ```
 
+## Debugging
+sactive-web along with many of the libraries it's built with support the __DEBUG__ environment variable from [debug](https://github.com/visionmedia/debug) which provides simple conditional logging.
 
-## Examples
+For example
+to see all sactive-web debugging information just pass `DEBUG=active:*` and upon boot you'll see the list of middleware used, among other things.
 ```bash
-git clone git@github.com:shipengqi/sactive-web.git
-cd ./sactive-web
-npm install
-cd ./example
+  active:di bind class: injector, singleton: true +0ms
+  active:di bind any: age, singleton: true +1ms
+  active:application use - +0ms
+  active:application use - +0ms
+  active:application register get /users/:name +1ms
+  active:application register get /users/ +0ms
+  active:application use - +0ms
+  active:di bind any: address, singleton: true +3ms
+  active:di bind function: getAddress, singleton: true +1ms
+  active:application listen +1ms
 ```
 
 ## Tests
@@ -113,6 +123,3 @@ npm test
 # coverage
 npm run test:cov
 ```
-
-## TODO
-- Engilsh Documentation
