@@ -2,7 +2,7 @@
 
 ## Application
 Expose `Application` class.
-Inherits from `Koa`.
+Inherits from [`Koa`](https://koajs.com/).
 
 **Kind**: global class  
 
@@ -28,7 +28,7 @@ Inherits from `Koa`.
 
 ### new Application([options])
 Initialize a new `Application`.
-Inherits from `Koa`.
+Inherits from [`Koa`](https://koajs.com/).
 
 
 | Param | Type | Default | Description |
