@@ -1,25 +1,25 @@
 <a name="Application"></a>
 
 ## Application
-Expose `Application` class.
-Inherits from [`Koa`](https://koajs.com/).
+Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
 
 **Kind**: global class  
 
 * [Application](#Application)
     * [new Application([options])](#new_Application_new)
-    * [.Use()](#Application+Use)
-    * [.use()](#Application+use)
+    * [.Use(fn)](#Application+Use)
+    * [.use(fn)](#Application+use)
     * [.Listen()](#Application+Listen)
-    * [.listen()](#Application+listen)
-    * [.listenTLS()](#Application+listenTLS)
-    * [.parse([any])](#Application+parse) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
-    * [.bindClass([name], [instance], [singleton])](#Application+bindClass)
-    * [.bindFunction(name, instance, [singleton])](#Application+bindFunction)
-    * [.bindAny([name], [instance], [singleton])](#Application+bindAny)
-    * [.getInstance([name])](#Application+getInstance) ⇒ <code>\*</code>
-    * [.getInstances([names])](#Application+getInstances) ⇒ <code>Array</code>
-    * [.getInstancesMap([names])](#Application+getInstancesMap) ⇒ <code>Object</code>
+    * [.listen(...args)](#Application+listen)
+    * [.listenTLS(options, ...args)](#Application+listenTLS)
+    * [.group(prefix)](#Application+group) ⇒ [<code>RouterGroup</code>](#new_RouterGroup_new)
+    * [.parse(any)](#Application+parse) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
+    * [.bindClass(name, instance)](#Application+bindClass)
+    * [.bindFunction(name, instance)](#Application+bindFunction)
+    * [.bindAny(name, instance)](#Application+bindAny)
+    * [.getInstance(name)](#Application+getInstance) ⇒ <code>\*</code>
+    * [.getInstances(names)](#Application+getInstances) ⇒ <code>Array</code>
+    * [.getInstancesMap(names)](#Application+getInstancesMap) ⇒ <code>Object</code>
     * [.deleteInstance(name)](#Application+deleteInstance)
     * [.deleteInstances(names)](#Application+deleteInstances)
     * [.reset()](#Application+reset)
@@ -27,8 +27,7 @@ Inherits from [`Koa`](https://koajs.com/).
 <a name="new_Application_new"></a>
 
 ### new Application([options])
-Initialize a new `Application`.
-Inherits from [`Koa`](https://koajs.com/).
+Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
 
 
 | Param | Type | Default | Description |
@@ -44,45 +43,75 @@ Inherits from [`Koa`](https://koajs.com/).
 
 <a name="Application+Use"></a>
 
-### application.Use()
-Alias for:
-  Koa app.use()
+### application.Use(fn)
+Alias for:  Koa app.use()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | middleware |
+
 <a name="Application+use"></a>
 
-### application.use()
-Overwrite Koa app.use()
+### application.use(fn)
+Register application level middleware.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fn | <code>function</code> | middleware |
+
 <a name="Application+Listen"></a>
 
 ### application.Listen()
-Alias for:
-  Koa app.listen()
+Alias for:  Koa app.listen()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
 <a name="Application+listen"></a>
 
-### application.listen()
+### application.listen(...args)
 Overwrite Koa app.listen()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ...args | <code>Mixed</code> | ... |
+
 <a name="Application+listenTLS"></a>
 
-### application.listenTLS()
-Shorthand for:
-  https.createServer(options, app.callback()).listen(...)
+### application.listenTLS(options, ...args)
+Shorthand for:  https.createServer(options, app.callback()).listen(...)
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| ...args | <code>Mixed</code> | ... |
+
+<a name="Application+group"></a>
+
+### application.group(prefix) ⇒ [<code>RouterGroup</code>](#new_RouterGroup_new)
+Group router.
+
+**Kind**: instance method of [<code>Application</code>](#Application)  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| prefix | <code>String</code> | prefix router paths |
+
 <a name="Application+parse"></a>
 
-### application.parse([any]) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
+### application.parse(any) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
 Parse function|class parameters.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -90,11 +119,11 @@ Parse function|class parameters.
 
 | Param | Type |
 | --- | --- |
-| [any] | <code>Class</code> \| <code>function</code> | 
+| any | <code>Class</code> \| <code>function</code> | 
 
 <a name="Application+bindClass"></a>
 
-### application.bindClass([name], [instance], [singleton])
+### application.bindClass(name, instance)
 Bind Class.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -102,13 +131,13 @@ Bind Class.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>String</code> | The name of the injected class. |
-| [instance] | <code>Class</code> | Injected class. |
-| [singleton] | <code>Boolean</code> |  |
+| name | <code>String</code> | The name of the injected class. |
+| instance | <code>Class</code> | Injected class. |
+| singleton. | <code>Boolean</code> |  |
 
 <a name="Application+bindFunction"></a>
 
-### application.bindFunction(name, instance, [singleton])
+### application.bindFunction(name, instance)
 Bind function.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -118,11 +147,11 @@ Bind function.
 | --- | --- | --- |
 | name | <code>String</code> | The name of the injected function. |
 | instance | <code>function</code> | Injected function. |
-| [singleton] | <code>Boolean</code> |  |
+| singleton. | <code>Boolean</code> |  |
 
 <a name="Application+bindAny"></a>
 
-### application.bindAny([name], [instance], [singleton])
+### application.bindAny(name, instance)
 Bind Any.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -130,13 +159,13 @@ Bind Any.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>String</code> | The name of the injected function. |
-| [instance] | <code>\*</code> | Injected instance. |
-| [singleton] | <code>Boolean</code> |  |
+| name | <code>String</code> | The name of the injected function. |
+| instance | <code>\*</code> | Injected instance. |
+| singleton. | <code>Boolean</code> |  |
 
 <a name="Application+getInstance"></a>
 
-### application.getInstance([name]) ⇒ <code>\*</code>
+### application.getInstance(name) ⇒ <code>\*</code>
 Get Instance.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -145,11 +174,11 @@ Get Instance.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [name] | <code>String</code> | The name of the injected instance. |
+| name | <code>String</code> | The name of the injected instance. |
 
 <a name="Application+getInstances"></a>
 
-### application.getInstances([names]) ⇒ <code>Array</code>
+### application.getInstances(names) ⇒ <code>Array</code>
 Get Instances.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -158,11 +187,11 @@ Get Instances.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [names] | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
+| names | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
 
 <a name="Application+getInstancesMap"></a>
 
-### application.getInstancesMap([names]) ⇒ <code>Object</code>
+### application.getInstancesMap(names) ⇒ <code>Object</code>
 Get Instances map.
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
@@ -171,7 +200,7 @@ Get Instances map.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [names] | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
+| names | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
 
 <a name="Application+deleteInstance"></a>
 

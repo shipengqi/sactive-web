@@ -31,42 +31,42 @@
 npm install sactive-web
 ```
 
+> **Note that 3.x.x is not compatible with 2.x.x and below** !!!
+
 ## Features
 
 - Dependency injection.
-- Routing, based on [koa-router](https://github.com/alexmingoia/koa-router).
+- Router, based on [koa-router](https://github.com/alexmingoia/koa-router).
+- Router group.
+- Interceptors.
 - Based on [Koa](https://github.com/koajs/koa).
 
 ## Example
 
 ```javascript
-const App = require('sactive-web');
+const App = require('..');
 
-app.bindAny('age', 18);
+const app = new App();
+app.bindAny('name', 'pooky');
 
-app.use(($ctx, $age, $next, $address) => {
-  console.log('age' + $age);
-  console.log('address', $address);
+app.use(($ctx, $name, $next) => {
+  $ctx.testname1 = $name;
   $next();
 });
 
-app.get('/users/:name', ($age, $ctx, $next, $address) => {
-  console.log($ctx.params.name);
-  console.log('age' + $age);
-  console.log('address', $address);
-  $ctx.params.id = 'user1';
-  $next();
-}, ($age, $ctx, $next, $address) => {
-  console.log($ctx.params.name, $ctx.params.id);
-  console.log('age' + $age);
-  console.log('address', $address);
-  $ctx.body = 'hello, ' + $ctx.path;
-});
+app.group('v1')
+  .get('/users/:name', ($ctx, $next, $name) => {
+    $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+  });
+app.group('v2/')
+  .get('/users/:name', ($name, $ctx, $next) => {
+    $ctx.response.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+  });
+app.group('/v3/')
+  .get('/users/:name', ($ctx, $name, $next) => {
+    $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+  });
 
-app.bindAny('address', 'shanghai');
-app.bindFunction('getAddress', $address => {
-  return $address;
-});
 app.listen(8080);
 ```
 
@@ -123,3 +123,7 @@ npm test
 # coverage
 npm run test:cov
 ```
+
+## TODO
+- Documentations
+- Benchmark test

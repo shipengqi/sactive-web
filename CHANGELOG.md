@@ -1,4 +1,0 @@
-- use 'debug' module instead of 'log'
-- refactor application
-- refactor router
-- remove unused package in package.json

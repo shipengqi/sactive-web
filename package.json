@@ -1,6 +1,6 @@
 {
   "name": "sactive-web",
-  "version": "3.0.0-rc1",
+  "version": "3.0.0-rc2",
   "description": "A dependency injection web framework for Node.js",
   "main": "lib/application.js",
   "scripts": {
@@ -15,12 +15,10 @@
     "url": "git+https://github.com/shipengqi/sactive-web.git"
   },
   "keywords": [
-    "web",
-    "framework",
+    "web framework",
     "dependency injection",
-    "koa",
     "koa2",
-    "sactive-di"
+    "koa router"
   ],
   "author": "pooky",
   "license": "MIT",
