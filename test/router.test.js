@@ -133,9 +133,16 @@ describe('Router tests', () => {
         $next();
       });
       app.bindAny('name2', CONSTANT_MOCK.INJECT_NAME + 2);
-      app.group('v1')
+      let v1Router = app.group('v1')
+        .use(($name6, $ctx, $next) => {
+          $ctx.testname6 = $name6;
+          $next();
+        })
         .get('/users/:name', ($ctx, $next, $name2) => {
           $ctx.body = {'name': $ctx.params.name, 'name1': $ctx.name1, 'name2': $name2};
+          if ($ctx.params.name === 'testname6') {
+            $ctx.body.name6 = $ctx.testname6;
+          }
           $next();
         }, ($ctx, $next, $name3) => {
           $ctx.body.name3 = $name3;
@@ -146,10 +153,19 @@ describe('Router tests', () => {
         }, ($ctx, $next, $name5) => {
           $ctx.body.name4 = $ctx.name4;
           $ctx.body.name5 = $name5;
+          if ($ctx.params.name === 'testname7') {
+            $ctx.body.name7 = $ctx.testname7;
+          }
         });
+      v1Router.use(($ctx, $next, $name7) => {
+        $ctx.testname7 = $name7;
+        $next();
+      });
       app.bindAny('name3', CONSTANT_MOCK.INJECT_NAME + 3);
       app.bindAny('name4', CONSTANT_MOCK.INJECT_NAME + 4);
       app.bindAny('name5', CONSTANT_MOCK.INJECT_NAME + 5);
+      app.bindAny('name6', CONSTANT_MOCK.INJECT_NAME + 6);
+      app.bindAny('name7', CONSTANT_MOCK.INJECT_NAME + 7);
       server = app.listen(CONSTANT_MOCK.PORT + 2);
     });
     it('get response: {name: xiaoming, name1: pooky1, name2: pooky1 ...}', done => {
@@ -158,6 +174,24 @@ describe('Router tests', () => {
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.eql({'name': 'xiaoming', 'name1': 'pooky1', 'name2': 'pooky2', 'name3': 'pooky3', 'name4': 'pooky4', 'name5': 'pooky5'});
+          done();
+        });
+    });
+    it('get response: {name: testname6, ..., name6: pooky6}', done => {
+      request(server)
+        .get('/v1/users/testname6')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({'name': 'testname6', 'name1': 'pooky1', 'name2': 'pooky2', 'name3': 'pooky3', 'name4': 'pooky4', 'name5': 'pooky5', 'name6': 'pooky6'});
+          done();
+        });
+    });
+    it('get response: {name: testname7, ..., name7: pooky7}', done => {
+      request(server)
+        .get('/v1/users/testname7')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({'name': 'testname7', 'name1': 'pooky1', 'name2': 'pooky2', 'name3': 'pooky3', 'name4': 'pooky4', 'name5': 'pooky5', 'name7': 'pooky7'});
           done();
         });
     });
