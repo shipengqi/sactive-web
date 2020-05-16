@@ -1,235 +1,203 @@
-<a name="Application"></a>
-
-## Application
-Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
-
-**Kind**: global class  
-
-* [Application](#Application)
-    * [new Application([options])](#new_Application_new)
-    * [.Use(fn)](#Application+Use)
-    * [.use(fn)](#Application+use)
-    * [.Listen()](#Application+Listen)
-    * [.listen(...args)](#Application+listen)
-    * [.listenTLS(options, ...args)](#Application+listenTLS)
-    * [.group(prefix)](#Application+group) ⇒ [<code>RouterGroup</code>](#new_RouterGroup_new)
-    * [.parse(any)](#Application+parse) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
-    * [.bindClass(name, instance)](#Application+bindClass)
-    * [.bindFunction(name, instance)](#Application+bindFunction)
-    * [.bindAny(name, instance)](#Application+bindAny)
-    * [.getInstance(name)](#Application+getInstance) ⇒ <code>\*</code>
-    * [.getInstances(names)](#Application+getInstances) ⇒ <code>Array</code>
-    * [.getInstancesMap(names)](#Application+getInstancesMap) ⇒ <code>Object</code>
-    * [.deleteInstance(name)](#Application+deleteInstance)
-    * [.deleteInstances(names)](#Application+deleteInstances)
-    * [.reset()](#Application+reset)
-
-<a name="new_Application_new"></a>
-
-### new Application([options])
-Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
-
-
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [options] | <code>Object</code> |  | Application options. |
-| [options.env] | <code>String</code> | <code>&#x27;development&#x27;</code> | Environment |
-| [options.keys] | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> |  | Signed cookie keys |
-| [options.proxy] | <code>Boolean</code> |  | Trust proxy headers |
-| [options.subdomainOffset] | <code>Number</code> |  | Subdomain offset |
-| [options.proxyIpHeader] | <code>Boolean</code> |  | proxy ip header, default to X-Forwarded-For |
-| [options.maxIpsCount] | <code>Boolean</code> |  | max ips read from proxy ip header, default to 0 (means infinity) |
-| [options.prefix] | <code>String</code> |  | prefix router paths |
-
-<a name="Application+Use"></a>
-
-### application.Use(fn)
-Alias for:  Koa app.use()
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | middleware |
-
-<a name="Application+use"></a>
-
-### application.use(fn)
-Register application level middleware.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | middleware |
-
-<a name="Application+Listen"></a>
-
-### application.Listen()
-Alias for:  Koa app.listen()
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-<a name="Application+listen"></a>
-
-### application.listen(...args)
-Overwrite Koa app.listen()
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...args | <code>Mixed</code> | ... |
-
-<a name="Application+listenTLS"></a>
-
-### application.listenTLS(options, ...args)
-Shorthand for:  https.createServer(options, app.callback()).listen(...)
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> |  |
-| ...args | <code>Mixed</code> | ... |
-
-<a name="Application+group"></a>
-
-### application.group(prefix) ⇒ [<code>RouterGroup</code>](#new_RouterGroup_new)
-Group router.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| prefix | <code>String</code> | prefix router paths |
-
-<a name="Application+parse"></a>
-
-### application.parse(any) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
-Parse function|class parameters.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type |
-| --- | --- |
-| any | <code>Class</code> \| <code>function</code> | 
-
-<a name="Application+bindClass"></a>
-
-### application.bindClass(name, instance)
-Bind Class.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | The name of the injected class. |
-| instance | <code>Class</code> | Injected class. |
-| singleton. | <code>Boolean</code> |  |
-
-<a name="Application+bindFunction"></a>
-
-### application.bindFunction(name, instance)
-Bind function.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | The name of the injected function. |
-| instance | <code>function</code> | Injected function. |
-| singleton. | <code>Boolean</code> |  |
-
-<a name="Application+bindAny"></a>
-
-### application.bindAny(name, instance)
-Bind Any.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | The name of the injected function. |
-| instance | <code>\*</code> | Injected instance. |
-| singleton. | <code>Boolean</code> |  |
-
-<a name="Application+getInstance"></a>
-
-### application.getInstance(name) ⇒ <code>\*</code>
-Get Instance.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Returns**: <code>\*</code> - - instance.  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | The name of the injected instance. |
-
-<a name="Application+getInstances"></a>
-
-### application.getInstances(names) ⇒ <code>Array</code>
-Get Instances.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Returns**: <code>Array</code> - - instances.  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| names | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
-
-<a name="Application+getInstancesMap"></a>
-
-### application.getInstancesMap(names) ⇒ <code>Object</code>
-Get Instances map.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Returns**: <code>Object</code> - - instances.  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| names | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
-
-<a name="Application+deleteInstance"></a>
-
-### application.deleteInstance(name)
-Delete Instance.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>String</code> | The name of the injected instance. |
-
-<a name="Application+deleteInstances"></a>
-
-### application.deleteInstances(names)
-Delete Instances.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| names | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | The names of the injected instances. |
-
-<a name="Application+reset"></a>
-
-### application.reset()
-Reset instance pool.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
+# Usage Guide
+
+- [安装](#%E5%AE%89%E8%A3%85)
+- [创建 APP](#%E5%88%9B%E5%BB%BA%20APP)
+- [依赖注入](#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5)
+  - [$ctx, $next](#$ctx,%20$next)
+- [应用级中间件](#%E5%BA%94%E7%94%A8%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6)
+- [路由](#%E8%B7%AF%E7%94%B1)
+  - [路由分组](#%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84)
+  - [路由组中间件](#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6)
+  - [Multiple middleware](#Multiple%20middleware)
+  - [路由前缀](#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80)
+- [API Reference](./api.md)
+- [参考](#%E5%8F%82%E8%80%83)
+  
+## 安装
+
+使用 [npm](https://www.npmjs.org/) 安装:
+
+```sh
+npm install sactive-web
+```
+
+## 创建 APP
+```javascript
+const App = require('sactive-web');
+
+const app = new App();
+
+app.use(($ctx, $next) => {
+  // do something
+  $next();
+});
+
+app.get('/users/:name', ($ctx, $next) => {
+  // do something
+  ctx.body = 'Hi, ' + $ctx.params.name;
+});
+
+app.listen(8080);
+```
+
+## 依赖注入
+`Application` 提供了三个绑定对象的方法：
+- `bindClass` - 绑定一个**类**。
+- `bindFunction` - 绑定一个**函数**。
+- `bingAny` - 绑定任意类型的值 String，Number，Object 等
+
+**已绑定的对象，在注册中间件函数，和路由函数时，可以通过加上 `$` 前缀的方式，获取实例**。框架会自动初始化实例，并注入依赖。
+
+```javascript
+const App = require('sactive-web');
+
+const app = new App();
+app.bindAny('address', 'shanghai');
+app.bindFunction('getAddress', $address => {
+  return $address;
+});
+
+class Person {
+  constructor($address) {
+    this.address = $address;
+  }
+  getAddress() {
+    return this.address;
+  }
+}
+
+app.bindClass('person', Person);
+
+// 注册路由函数，`$person` 参数，会被初始化并注入
+app.get('/users/:name', ($ctx, $next, $person) => {
+  $ctx.response.body = {'name': $ctx.params.name, address: $person.getAddress()};
+  // 请求 /users/Pooky
+  // => { name: "Pooky", address: "shanghai" }
+});
+```
+
+### $ctx, $next
+`$ctx`, `$next` 是 koa 中间件函数的 `ctx` 和 `next` 的别名。
+```javascript
+app.use(($ctx, $next) => {
+  // do something
+  $next();
+});
+
+// 等同于 koa 中的
+app.use((ctx, next) => {
+  // do something
+  $next();
+});
+```
+
+不同的是 `sactive-web` 注册的中间件函数 `$ctx`, `$next` 和依赖可以以任意顺序注入：
+```javascript
+app.use(($person, $next, $ctx) => {
+  // do something
+  $next();
+});
+```
+
+注意中间件函数不要忘了调用 `$next()`。
+
+## 应用级中间件
+`app.use` 重写了 [koa](https://koajs.com/) 的 `use` 方法。
+
+## 路由
+`sactive-web` 的路由功能基于 [koa-router](https://github.com/alexmingoia/koa-router) 实现。
+### app.get|put|post|patch|delete|del|all
+重写了 koa-router `Router` 类的所有路由方法。
+
+```javascript
+app
+  .get('/', ($ctx, $next) => {
+    ctx.body = 'Hello World!';
+  })
+  .post('/users', ($ctx, $next) => {
+    // ...
+  })
+  .put('/users/:id', ($ctx, $next) => {
+    // ...
+  })
+  .del('/users/:id', ($ctx, $next) => {
+    // ...
+  })
+  .all('/users/:id', ($ctx, $next) => {
+    // ...
+  });
+```
+
+### 路由分组
+`app.group` 创建路由分组， `group` 方法返回路由对象：
+```javascript
+const App = require('..');
+
+const app = new App();
+
+app.group('v1')
+  .get('/users/:name', ($ctx, $next) => {
+    // do something
+  });
+app.group('v2/')
+  .get('/users/:name', ($name, $ctx, $next) => {
+    // do something
+  });
+app.group('/v3/')
+  .get('/users/:name', ($ctx, $name, $next) => {
+    // do something
+  });
+
+app.listen(8080);
+```
+
+### 路由组中间件
+```javascript
+let groupV1 = app.group('v1')
+  .get('/users/:name', ($ctx, $next) => {
+
+  });
+
+groupV1.use(($ctx, $next) => {
+  // do something
+});
+```
+
+使用 `RouterGroup.use` 方法注册路由级中间件。
+
+### Multiple middleware
+
+`Application` 和 `RouterGroup` 支持注册多个路由函数：
+```javascript
+app.get(
+  '/users/:id',
+  ($ctx, $next) => {
+    return User.findOne(ctx.params.id).then(function(user) {
+      ctx.user = user;
+      next();
+    });
+  },
+  ($ctx, $next) => {
+    console.log(ctx.user);
+    // => { id: 17, name: "Alex" }
+  }
+);
+```
+
+### 路由前缀
+
+应用路由前缀：
+```javascript
+var app = new App({
+  prefix: '/users'
+});
+
+app.get('/', ...); // responds to "/users"
+app.get('/:id', ...); // responds to "/users/:id"
+```
+
+## 参考
+更多关于 koa 和 koa-router 的使用可以参考官方文档：
+
+- [koa](https://koajs.com/)
+- [koa-router](https://github.com/alexmingoia/koa-router)

@@ -13,6 +13,9 @@
   <a href="https://codecov.io/gh/shipengqi/sactive-web">
     <img alt="Build Status" src="https://img.shields.io/codecov/c/github/shipengqi/sactive-web.svg?style=flat-square">
   </a>
+  <a href="http://nodejs.org/download/">
+    <img alt="License" src="https://img.shields.io/node/v/sactive-web.svg?style=flat-square">
+  </a>  
   <a href="https://www.npmjs.com/package/sactive-web">
     <img alt="NPM version" src="https://img.shields.io/npm/v/sactive-web.svg?style=flat-square">
   </a>
@@ -36,10 +39,9 @@ npm install sactive-web
 ## Features
 
 - Dependency injection.
-- Router, based on [koa-router](https://github.com/alexmingoia/koa-router).
-- Router group.
+- Router, router group, based on [koa-router](https://github.com/alexmingoia/koa-router).
 - Interceptors.
-- Based on [Koa](https://github.com/koajs/koa).
+- Based on [Koa2](https://github.com/koajs/koa).
 
 ## Example
 
@@ -70,31 +72,13 @@ app.group('/v3/')
 app.listen(8080);
 ```
 
-## API Reference
+## Documentation
+- [Usage Guide](./docs/README.md) 
+- [API Reference](./docs/api.md) 
 
-[API Reference](https://www.shipengqi.top/sactive-web) .
 
 ## Babel setup
-If you're not using node `v7.6+`, you can use `babel`:
-
-```javascript
-//entry file
-require('babel-register');
-const app = require('./app');
-```
-
-Add the following to `.babelrc`:
-```javascript
-{
-  "presets": [
-    ["env", {
-      "targets": {
-        "node": true
-      }
-    }]
-  ]
-}
-```
+If you're not using `node v7.6+`, you can refer [koa installation](https://koajs.com/#introduction).
 
 ## Debugging
 sactive-web along with many of the libraries it's built with support the __DEBUG__ environment variable from [debug](https://github.com/visionmedia/debug) which provides simple conditional logging.
@@ -125,5 +109,5 @@ npm run test:cov
 ```
 
 ## TODO
-- Documentations
+- `Application.allowedMethods` implementation.
 - Benchmark test
