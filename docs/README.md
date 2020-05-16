@@ -10,6 +10,7 @@
   - [路由组中间件](#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6)
   - [Multiple middleware](#Multiple%20middleware)
   - [路由前缀](#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80)
+- [拦截器](#%E6%8B%A6%E6%88%AA%E5%99%A8)  
 - [API Reference](./api.md)
 - [参考](#%E5%8F%82%E8%80%83)
   
@@ -194,6 +195,52 @@ var app = new App({
 
 app.get('/', ...); // responds to "/users"
 app.get('/:id', ...); // responds to "/users/:id"
+```
+
+## 拦截器
+
+`app.interceptors` 包含两个拦截器：
+- `errors` - 拦截所有路由处理函数中抛出的异常。`app.interceptors.errors.use` 方法注册异常拦截器，拦截器函数接受两个参数 `error` 
+和 `ctx`，分别是捕获到的异常，和请求上下文对象。
+- `response` - 拦截响应。`app.interceptors.response.use` 方法注册响应拦截器，拦截器函数接受一个参数 `ctx` ，请求上下文对象。
+
+
+
+```javascript
+app.get(
+  '/users/:id',
+  ($ctx, $next) => {
+    return User.findOne(ctx.params.id).then(function(user) {
+      ctx.user = user;
+      // throw new Error('internal error');
+      // 请求的响应： {code: 500, {}, msg: "internal error"}
+      next();
+    });
+  },
+  ($ctx, $next) => {
+    console.log(ctx.user);
+    // => { id: 17, name: "Alex" }
+    $ctx.body = { id: 17, name: "Alex" };
+    // 请求的响应： {code: 200, { id: 17, name: "Alex" }, msg: "ok"}
+  }
+);
+
+app.interceptors.errors.use((err, ctx) => {
+  ctx.body = {
+    code: 500,
+    data: {},
+    msg: err.message
+  };
+});
+
+app.interceptors.response.use(ctx => {
+  let data = ctx.body;
+  ctx.body = {
+    code: 200,
+    data: data,
+    msg: 'ok'
+  };
+});
 ```
 
 ## 参考
