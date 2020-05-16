@@ -1,14 +1,14 @@
 # Usage Guide
 
 - [安装](#%E5%AE%89%E8%A3%85)
-- [创建 APP](#%E5%88%9B%E5%BB%BA%20APP)
+- [创建 APP](#%E5%88%9B%E5%BB%BA-app)
 - [依赖注入](#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5)
-  - [$ctx, $next](#$ctx,%20$next)
+  - [$ctx, $next](#%24ctx%2C%20%24next)
 - [应用级中间件](#%E5%BA%94%E7%94%A8%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6)
 - [路由](#%E8%B7%AF%E7%94%B1)
   - [路由分组](#%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84)
   - [路由组中间件](#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6)
-  - [Multiple middleware](#Multiple%20middleware)
+  - [Multiple middleware](#multiple-middleware)
   - [路由前缀](#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80)
 - [拦截器](#%E6%8B%A6%E6%88%AA%E5%99%A8)  
 - [API Reference](./api.md)
@@ -48,6 +48,7 @@ app.listen(8080);
 - `bingAny` - 绑定任意类型的值 String，Number，Object 等
 
 **已绑定的对象，在注册中间件函数，和路由函数时，可以通过加上 `$` 前缀的方式，获取实例**。框架会自动初始化实例，并注入依赖。
+获取未绑定的对象，会返回 `null`。
 
 ```javascript
 const App = require('sactive-web');
@@ -241,6 +242,22 @@ app.interceptors.response.use(ctx => {
     msg: 'ok'
   };
 });
+```
+
+## allowedMethods
+使用 koa-router `Router` 的 `allowedMethods` 方法：
+
+```javascript
+// app 路由注册 allowedMethods 中间件
+app.use(app.router.allowedMethods());
+
+// 分组路由注册 allowedMethods 中间件
+let groupV1 = app.group('v1')
+  .get('/users/:name', ($ctx, $next) => {
+
+  });
+
+app.use(groupV1.allowedMethods());
 ```
 
 ## 参考
