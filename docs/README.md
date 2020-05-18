@@ -1,15 +1,17 @@
 # Usage Guide
 
 - [安装](#%E5%AE%89%E8%A3%85)
-- [创建 APP](#%E5%88%9B%E5%BB%BA%20APP)
+- [创建 APP](#%E5%88%9B%E5%BB%BA-app)
 - [依赖注入](#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5)
-  - [$ctx, $next](#$ctx,%20$next)
+  - [其他方法](#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95)
+  - [$ctx, $next](#%24ctx%2C%20%24next)
 - [应用级中间件](#%E5%BA%94%E7%94%A8%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6)
 - [路由](#%E8%B7%AF%E7%94%B1)
   - [路由分组](#%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84)
   - [路由组中间件](#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6)
-  - [Multiple middleware](#Multiple%20middleware)
+  - [Multiple middleware](#multiple-middleware)
   - [路由前缀](#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80)
+- [拦截器](#%E6%8B%A6%E6%88%AA%E5%99%A8)  
 - [API Reference](./api.md)
 - [参考](#%E5%8F%82%E8%80%83)
   
@@ -42,11 +44,14 @@ app.listen(8080);
 
 ## 依赖注入
 `Application` 提供了三个绑定对象的方法：
-- `bindClass` - 绑定一个**类**。
-- `bindFunction` - 绑定一个**函数**。
-- `bingAny` - 绑定任意类型的值 String，Number，Object 等
+- `bindClass(name, class, singleton)` - 绑定一个**类**。
+- `bindFunction(name, func, singleton)` - 绑定一个**函数**。
+- `bingAny(name, any, singleton)` - 绑定任意类型的值 String，Number，Object 等
+
+`singleton` - (Boolean) 可选，默认为 `true`。表示是否以单例模式绑定。
 
 **已绑定的对象，在注册中间件函数，和路由函数时，可以通过加上 `$` 前缀的方式，获取实例**。框架会自动初始化实例，并注入依赖。
+获取未绑定的对象，会返回 `null`。
 
 ```javascript
 const App = require('sactive-web');
@@ -75,6 +80,15 @@ app.get('/users/:name', ($ctx, $next, $person) => {
   // => { name: "Pooky", address: "shanghai" }
 });
 ```
+
+### 其他方法
+- `getInstance` - 获取实例对象
+- `getInstances` - 获取多个实例对象
+- `deleteInstance` - 删除已绑定的对象
+- `deleteInstances` - 删除多个已绑定的对象
+- `reset` - 重置实例池
+
+具体的使用方法，参考 [API Reference](./api.md)。
 
 ### $ctx, $next
 `$ctx`, `$next` 是 koa 中间件函数的 `ctx` 和 `next` 的别名。
@@ -194,6 +208,68 @@ var app = new App({
 
 app.get('/', ...); // responds to "/users"
 app.get('/:id', ...); // responds to "/users/:id"
+```
+
+## 拦截器
+
+`app.interceptors` 包含两个拦截器：
+- `errors` - 拦截所有路由处理函数中抛出的异常。`app.interceptors.errors.use` 方法注册异常拦截器，拦截器函数接受两个参数 `error` 
+和 `ctx`，分别是捕获到的异常，和请求上下文对象。
+- `response` - 拦截响应。`app.interceptors.response.use` 方法注册响应拦截器，拦截器函数接受一个参数 `ctx` ，请求上下文对象。
+
+
+
+```javascript
+app.get(
+  '/users/:id',
+  ($ctx, $next) => {
+    return User.findOne(ctx.params.id).then(function(user) {
+      ctx.user = user;
+      // throw new Error('internal error');
+      // 请求的响应： {code: 500, {}, msg: "internal error"}
+      next();
+    });
+  },
+  ($ctx, $next) => {
+    console.log(ctx.user);
+    // => { id: 17, name: "Alex" }
+    $ctx.body = { id: 17, name: "Alex" };
+    // 请求的响应： {code: 200, { id: 17, name: "Alex" }, msg: "ok"}
+  }
+);
+
+app.interceptors.errors.use((err, ctx) => {
+  ctx.body = {
+    code: 500,
+    data: {},
+    msg: err.message
+  };
+});
+
+app.interceptors.response.use(ctx => {
+  let data = ctx.body;
+  ctx.body = {
+    code: 200,
+    data: data,
+    msg: 'ok'
+  };
+});
+```
+
+## allowedMethods
+使用 koa-router `Router` 的 `allowedMethods` 方法：
+
+```javascript
+// app 路由注册 allowedMethods 中间件
+app.use(app.router.allowedMethods());
+
+// 分组路由注册 allowedMethods 中间件
+let groupV1 = app.group('v1')
+  .get('/users/:name', ($ctx, $next) => {
+
+  });
+
+app.use(groupV1.allowedMethods());
 ```
 
 ## 参考

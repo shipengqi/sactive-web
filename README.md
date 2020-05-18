@@ -109,5 +109,4 @@ npm run test:cov
 ```
 
 ## TODO
-- `Application.allowedMethods` implementation.
 - Benchmark test
