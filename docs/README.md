@@ -11,7 +11,8 @@
   - [路由组中间件](#%E8%B7%AF%E7%94%B1%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6)
   - [Multiple middleware](#multiple-middleware)
   - [路由前缀](#%E8%B7%AF%E7%94%B1%E5%89%8D%E7%BC%80)
-- [拦截器](#%E6%8B%A6%E6%88%AA%E5%99%A8)  
+- [拦截器](#%E6%8B%A6%E6%88%AA%E5%99%A8)
+- [allowedMethods](#allowedMethods) 
 - [API Reference](./api.md)
 - [参考](#%E5%8F%82%E8%80%83)
   
@@ -257,13 +258,19 @@ app.interceptors.response.use(ctx => {
 ```
 
 ## allowedMethods
-使用 koa-router `Router` 的 `allowedMethods` 方法：
 
+`app.allowMethods` 方法为所有的路由组和 app 路由注册 koa-router `Router` 的 `allowedMethods` 中间件：
 ```javascript
-// app 路由注册 allowedMethods 中间件
-app.use(app.router.allowedMethods());
+app.allowMethods(options)
+```
 
-// 分组路由注册 allowedMethods 中间件
+app 路由注册 `allowedMethods` 中间件
+```javascript
+app.use(app.router.allowedMethods());
+```
+
+为指定的路由组注册 `allowedMethods` 中间件
+```javascript
 let groupV1 = app.group('v1')
   .get('/users/:name', ($ctx, $next) => {
 

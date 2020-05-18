@@ -94,6 +94,7 @@ describe('Router tests', () => {
         .get('/users/:name', ($ctx, $name, $next) => {
           $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
         });
+      app.allowMethods();
       server = app.listen(CONSTANT_MOCK.PORT + 1);
     });
     it('Group v1, get response: {name: xiaoming, testname1: pooky, testname2: pooky}', done => {
@@ -122,6 +123,87 @@ describe('Router tests', () => {
           expect(res.body).to.eql({'name': 'xiaoqiang', 'testname1': 'pooky', 'testname2': 'pooky'});
           done();
         });
+    });
+  });
+  describe('Router delete tests', () => {
+    before(() => {
+      const app = new App();
+      app.bindAny('name', CONSTANT_MOCK.INJECT_NAME);
+      app.use(($ctx, $name, $next) => {
+        $ctx.testname1 = $name;
+        $next();
+      });
+      app.group('/v4/')
+          .del('/users/:name', ($ctx, $name, $next) => {
+            $ctx.body = `v4 delete user ${$ctx.params.name}, ${$name} success`;
+          })
+          .delete('/products/:name', ($ctx, $name, $next) => {
+            $ctx.body = `v4 delete product ${$ctx.params.name}, ${$name} success`;
+          });
+      app.delete('/users/:name', ($ctx, $name, $next) => {
+        $ctx.body = `app delete user ${$ctx.params.name}, ${$name} success`;
+      });
+      app.del('/products/:name', ($ctx, $name, $next) => {
+        $ctx.body = `app delete product ${$ctx.params.name}, ${$name} success`;
+      });
+      app.get('/users/:name', ($ctx, $name, $next) => {
+        $ctx.body = $ctx.params.name;
+      });
+      server = app.listen(CONSTANT_MOCK.PORT + 8);
+    });
+    it('App router, /users get response: xiaoqiang', done => {
+      request(server)
+          .get('/users/xiaoqiang')
+          .set('Accept', 'text/plain; charset=utf-8')
+          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .expect(200)
+          .end((err, res) => {
+            expect(res.text).to.eql('xiaoqiang');
+            done();
+          });
+    });
+    it('Group v4, /v4/users get response: v4 delete user xiaoqiang, pooky success', done => {
+      request(server)
+          .delete('/v4/users/xiaoqiang')
+          .expect(200)
+          .set('Accept', 'text/plain; charset=utf-8')
+          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .end((err, res) => {
+            expect(res.text).to.eql('v4 delete user xiaoqiang, pooky success');
+            done();
+          });
+    });
+    it('Group v4, /v4/products get response: v4 delete product, pooky phone success', done => {
+      request(server)
+          .del('/v4/products/phone')
+          .set('Accept', 'text/plain; charset=utf-8')
+          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .expect(200)
+          .end((err, res) => {
+            expect(res.text).to.eql('v4 delete product phone, pooky success');
+            done();
+          });
+    });
+    it('App router /users get response: app delete user xiaoqiang, pooky success', done => {
+      request(server)
+          .del('/users/xiaoqiang')
+          .set('Accept', 'text/plain; charset=utf-8')
+          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .end((err, res) => {
+            expect(res.text).to.eql('app delete user xiaoqiang, pooky success');
+            done();
+          });
+    });
+    it('App router /products get response: app delete product phone, pooky success', done => {
+      request(server)
+          .del('/products/phone')
+          .set('Accept', 'text/plain; charset=utf-8')
+          .expect('Content-Type', 'text/plain; charset=utf-8')
+          .expect(200)
+          .end((err, res) => {
+            expect(res.text).to.eql('app delete product phone, pooky success');
+            done();
+          });
     });
   });
   describe('Router multiple middleware tests', () => {
@@ -168,7 +250,7 @@ describe('Router tests', () => {
       app.bindAny('name7', CONSTANT_MOCK.INJECT_NAME + 7);
       server = app.listen(CONSTANT_MOCK.PORT + 2);
     });
-    it('get response: {name: xiaoming, name1: pooky1, name2: pooky1 ...}', done => {
+    it('Get response: {name: xiaoming, name1: pooky1, name2: pooky1 ...}', done => {
       request(server)
         .get('/v1/users/xiaoming')
         .expect(200)
@@ -177,7 +259,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {name: testname6, ..., name6: pooky6}', done => {
+    it('Get response: {name: testname6, ..., name6: pooky6}', done => {
       request(server)
         .get('/v1/users/testname6')
         .expect(200)
@@ -186,7 +268,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {name: testname7, ..., name7: pooky7}', done => {
+    it('Get response: {name: testname7, ..., name7: pooky7}', done => {
       request(server)
         .get('/v1/users/testname7')
         .expect(200)
@@ -245,7 +327,7 @@ describe('Router tests', () => {
       });
       server = app.listen(CONSTANT_MOCK.PORT + 3);
     });
-    it('get response: {code: 200, data: {...}, msg: ok}', done => {
+    it('Get response: {code: 200, data: {...}, msg: ok}', done => {
       request(server)
         .get('/v1/users/xiaoqiang')
         .expect(200)
@@ -265,7 +347,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {code: 500, data: {...}, msg: pooky}', done => {
+    it('Get response: {code: 500, data: {...}, msg: pooky}', done => {
       request(server)
         .get('/v1/users/pooky')
         .expect(200)
@@ -278,7 +360,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {code: 500, data: {...}, msg: xiaoming}', done => {
+    it('Get response: {code: 500, data: {...}, msg: xiaoming}', done => {
       request(server)
         .get('/v1/users/xiaoming')
         .expect(200)
@@ -337,7 +419,7 @@ describe('Router tests', () => {
         unhandledRejection = reason.message;
       });
     });
-    it('get response: {code: 200, data: {...}, msg: ok}', done => {
+    it('Get response: {code: 200, data: {...}, msg: ok}', done => {
       request(server)
         .get('/v1/users/xiaoqiang')
         .expect(200)
@@ -357,7 +439,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {code: 500, data: {...}, msg: pooky}', done => {
+    it('Get response: {code: 500, data: {...}, msg: pooky}', done => {
       request(server)
         .get('/v1/users/pooky')
         .expect(200)
@@ -366,7 +448,7 @@ describe('Router tests', () => {
           done();
         });
     });
-    it('get response: {code: 500, data: {...}, msg: xiaoming}', done => {
+    it('Get response: {code: 500, data: {...}, msg: xiaoming}', done => {
       request(server)
         .get('/v1/users/xiaoming')
         .expect(200)

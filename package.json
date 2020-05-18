@@ -31,9 +31,9 @@
     "debug": "^4.1.1",
     "extend": "^3.0.1",
     "koa": "^2.5.1",
+    "koa-compose": "^4.1.0",
     "koa-router": "^7.4.0",
-    "methods": "^1.1.2",
-    "koa-compose": "^4.1.0"
+    "methods": "^1.1.2"
   },
   "devDependencies": {
     "babel-register": "^6.26.0",
@@ -48,7 +48,7 @@
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "supertest": "^3.1.0"
+    "supertest": "^4.0.2"
   },
   "engines": {
     "node": "^6.10.1 || ^7.10.1 || >= 8.1.4"

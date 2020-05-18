@@ -39,7 +39,7 @@ npm install sactive-web
 ## Features
 
 - Dependency injection.
-- Router, router group, based on [koa-router](https://github.com/alexmingoia/koa-router).
+- Router, grouping routes, based on [koa-router](https://github.com/alexmingoia/koa-router).
 - Interceptors.
 - Based on [Koa2](https://github.com/koajs/koa).
 
