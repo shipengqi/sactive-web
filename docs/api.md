@@ -25,6 +25,7 @@ Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
     * [.listen(...args)](#Application+listen)
     * [.listenTLS(options, ...args)](#Application+listenTLS)
     * [.group(prefix)](#Application+group) ⇒ [<code>RouterGroup</code>](#RouterGroup)
+    * [.allowMethods([options])](#Application+allowMethods)
     * [.parse(any)](#Application+parse) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
     * [.bindClass(name, instance)](#Application+bindClass)
     * [.bindFunction(name, instance)](#Application+bindFunction)
@@ -133,6 +134,21 @@ Group router.
 | Param | Type | Description |
 | --- | --- | --- |
 | prefix | <code>String</code> | prefix router paths |
+
+<a name="Application+allowMethods"></a>
+
+### application.allowMethods([options])
+Add `allowedMethods` middleware for app.router and each router group.
+
+**Kind**: instance method of [<code>Application</code>](#Application)  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [options] | <code>Object</code> |  |
+| [options.throw] | <code>Boolean</code> | throw error instead of setting status and header |
+| [options.notImplemented] | <code>function</code> | throw the returned value in place of the default NotImplemented error |
+| [options.methodNotAllowed] | <code>function</code> | throw the returned value in place of the default MethodNotAllowed error |
 
 <a name="Application+parse"></a>
 
