@@ -12,20 +12,20 @@ Inherits from <a href="https://koajs.com/"><code>Koa</code></a>.</p>
 <a name="Application"></a>
 
 ## Application
-Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
+Expose `Application` class.
+Inherits from [`Koa`](https://koajs.com/).
 
 **Kind**: global class  
 
 * [Application](#Application)
     * [new Application([options])](#new_Application_new)
     * [.get|put|post|patch|delete|del|all](#Application+get|put|post|patch|delete|del|all) ⇒ [<code>RouterGroup</code>](#RouterGroup)
-    * [.Use(fn)](#Application+Use)
+    * [.USE(fn)](#Application+USE)
     * [.use(fn)](#Application+use)
     * [.Listen()](#Application+Listen)
     * [.listen(...args)](#Application+listen)
     * [.listenTLS(options, ...args)](#Application+listenTLS)
     * [.group(prefix)](#Application+group) ⇒ [<code>RouterGroup</code>](#RouterGroup)
-    * [.allowMethods([options])](#Application+allowMethods)
     * [.parse(any)](#Application+parse) ⇒ <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code>
     * [.bindClass(name, instance)](#Application+bindClass)
     * [.bindFunction(name, instance)](#Application+bindFunction)
@@ -40,7 +40,8 @@ Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
 <a name="new_Application_new"></a>
 
 ### new Application([options])
-Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
+Initialize a new `Application`.
+Inherits from [`Koa`](https://koajs.com/).
 
 
 | Param | Type | Default | Description |
@@ -57,7 +58,8 @@ Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
 <a name="Application+get|put|post|patch|delete|del|all"></a>
 
 ### application.get\|put\|post\|patch\|delete\|del\|all ⇒ [<code>RouterGroup</code>](#RouterGroup)
-Create router verbs methods, where *verb* is one of the HTTP verbs suchas `app.get()` or `app.post()`.
+Create router verbs methods, where *verb* is one of the HTTP verbs such
+as `app.get()` or `app.post()`.
 
 **Kind**: instance property of [<code>Application</code>](#Application)  
 
@@ -67,10 +69,11 @@ Create router verbs methods, where *verb* is one of the HTTP verbs suchas `app.
 | [middleware] | <code>function</code> | route middleware(s) |
 | callback | <code>function</code> | route callback |
 
-<a name="Application+Use"></a>
+<a name="Application+USE"></a>
 
-### application.Use(fn)
-Alias for:  Koa app.use()
+### application.USE(fn)
+Alias for:
+  Koa app.use()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
@@ -94,7 +97,8 @@ Register application level middleware.
 <a name="Application+Listen"></a>
 
 ### application.Listen()
-Alias for:  Koa app.listen()
+Alias for:
+  Koa app.listen()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
@@ -113,7 +117,8 @@ Overwrite Koa app.listen()
 <a name="Application+listenTLS"></a>
 
 ### application.listenTLS(options, ...args)
-Shorthand for:  https.createServer(options, app.callback()).listen(...)
+Shorthand for:
+  https.createServer(options, app.callback()).listen(...)
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
@@ -135,20 +140,6 @@ Group router.
 | --- | --- | --- |
 | prefix | <code>String</code> | prefix router paths |
 
-<a name="Application+allowMethods"></a>
-
-### application.allowMethods([options])
-Add `allowedMethods` middleware for app.router and each router group.
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [options] | <code>Object</code> |  |
-| [options.throw] | <code>Boolean</code> | throw error instead of setting status and header |
-| [options.notImplemented] | <code>function</code> | throw the returned value in place of the default NotImplemented error |
-| [options.methodNotAllowed] | <code>function</code> | throw the returned value in place of the default MethodNotAllowed error |
 
 <a name="Application+parse"></a>
 
@@ -288,7 +279,8 @@ Reset instance pool.
 <a name="new_RouterGroup_new"></a>
 
 ### new RouterGroup([options], app)
-Initialize a new `RouterGroup`.Inherits from [`koa-router`](https://github.com/ZijianHe/koa-router).
+Initialize a new `RouterGroup`.
+Inherits from [`koa-router`](https://github.com/ZijianHe/koa-router).
 
 
 | Param | Type | Description |

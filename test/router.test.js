@@ -93,8 +93,23 @@ describe('Router tests', () => {
       app.group('/v3/')
         .get('/users/:name', ($ctx, $name, $next) => {
           $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+        })
+        .GET('/products/:name', (ctx, next) => {
+          ctx.body = {'name': ctx.params.name, 'testname1': ctx.testname1};
+        })
+        .POST('/products/:name', (ctx, next) => {
+            ctx.testproduct = ctx.params.name + 1;
+            next();
+        },(ctx, next) => {
+          ctx.body = {'name': ctx.params.name, 'testproduct': ctx.testproduct};
+        })
+        .DEL('/users/:name', (ctx, next) => {
+          ctx.body = 'ok';
+        })
+        .DELETE('/products/:name', (ctx, next) => {
+          ctx.body = 'ok';
         });
-      app.allowMethods();
+      // app.USE(app.router.allowedMethods);
       server = app.listen(CONSTANT_MOCK.PORT + 1);
     });
     it('Group v1, get response: {name: xiaoming, testname1: pooky, testname2: pooky}', done => {
@@ -121,6 +136,51 @@ describe('Router tests', () => {
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.eql({'name': 'xiaoqiang', 'testname1': 'pooky', 'testname2': 'pooky'});
+          done();
+        });
+    });
+    it('Group v4, get response: 404', done => {
+      request(server)
+        .get('/v4/users/notfound')
+        .expect(404)
+        .end((err, res) => {
+          expect(res.text).to.eql('Not Found');
+          done();
+        });
+    });
+    it('Group v3 GET, get response: {name: phone, testname1: pooky}', done => {
+      request(server)
+        .get('/v3/products/phone')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({ name: 'phone', testname1: 'pooky' });
+          done();
+        });
+    });
+    it('Group v3 POST, get response: {name: phone, testproduct: phone1}', done => {
+      request(server)
+        .post('/v3/products/phone')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({ name: 'phone', testproduct: 'phone1' });
+          done();
+        });
+    });
+    it('Group v3 DEL, get response: {name: phone, testproduct: phone1}', done => {
+      request(server)
+        .del('/v3/users/pooky')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.text).to.eql('ok');
+          done();
+        });
+    });
+    it('Group v3 DELETE, get response: {name: phone, testproduct: phone1}', done => {
+      request(server)
+        .del('/v3/products/phone')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.text).to.eql('ok');
           done();
         });
     });
