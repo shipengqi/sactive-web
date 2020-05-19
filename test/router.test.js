@@ -1,4 +1,5 @@
 const App = require('..');
+const koaBody = require('koa-body');
 const request = require('supertest');
 const {expect} = require('chai');
 
@@ -77,6 +78,7 @@ describe('Router tests', () => {
   describe('Router group tests', () => {
     before(() => {
       const app = new App();
+      app.USE(koaBody());
       app.bindAny('name', CONSTANT_MOCK.INJECT_NAME);
       app.use(($ctx, $name, $next) => {
         $ctx.testname1 = $name;
@@ -85,14 +87,23 @@ describe('Router tests', () => {
       app.group('v1')
         .get('/users/:name', ($ctx, $next, $name) => {
           $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+        })
+        .post('/users/:name', ($ctx, $next, $name) => {
+          $ctx.body = $ctx.request.body;
         });
       app.group('v2/')
         .get('/users/:name', ($name, $ctx, $next) => {
           $ctx.response.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+        })
+        .post('/users/:name', ($ctx, $next, $name) => {
+          $ctx.body = $ctx.request.body;
         });
       app.group('/v3/')
         .get('/users/:name', ($ctx, $name, $next) => {
           $ctx.body = {'name': $ctx.params.name, 'testname1': $ctx.testname1, 'testname2': $name};
+        })
+        .POST('/users/:name', (ctx, next) => {
+          ctx.body = ctx.request.body;
         })
         .GET('/products/:name', (ctx, next) => {
           ctx.body = {'name': ctx.params.name, 'testname1': ctx.testname1};
@@ -109,7 +120,6 @@ describe('Router tests', () => {
         .DELETE('/products/:name', (ctx, next) => {
           ctx.body = 'ok';
         });
-      // app.USE(app.router.allowedMethods);
       server = app.listen(CONSTANT_MOCK.PORT + 1);
     });
     it('Group v1, get response: {name: xiaoming, testname1: pooky, testname2: pooky}', done => {
@@ -121,12 +131,32 @@ describe('Router tests', () => {
           done();
         });
     });
+    it('Group v1 POST, get response: {name: koa-body}', done => {
+      request(server)
+        .post('/v1/users/xiaoming')
+        .send({name: 'koa-body'})
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({name: 'koa-body'});
+          done();
+        });
+    });
     it('Group v2, get response: {name: xiaoliang, testname1: pooky, testname2: pooky}', done => {
       request(server)
         .get('/v2/users/xiaoliang')
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.eql({'name': 'xiaoliang', 'testname1': 'pooky', 'testname2': 'pooky'});
+          done();
+        });
+    });
+    it('Group v2 POST, get response: {name: koa-body}', done => {
+      request(server)
+        .post('/v2/users/xiaoliang')
+        .send({name: 'koa-body'})
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({name: 'koa-body'});
           done();
         });
     });
@@ -165,6 +195,16 @@ describe('Router tests', () => {
           expect(res.body).to.eql({ name: 'phone', testproduct: 'phone1' });
           done();
         });
+    });
+    it('Group v3 POST, get response: {name: koa-body}', done => {
+      request(server)
+          .post('/v3/users/phone')
+          .send({name: 'koa-body'})
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body).to.eql({name: 'koa-body'});
+            done();
+          });
     });
     it('Group v3 DEL, get response: {name: phone, testproduct: phone1}', done => {
       request(server)

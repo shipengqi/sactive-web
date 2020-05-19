@@ -12,15 +12,15 @@ Inherits from <a href="https://koajs.com/"><code>Koa</code></a>.</p>
 <a name="Application"></a>
 
 ## Application
-Expose `Application` class.
-Inherits from [`Koa`](https://koajs.com/).
+Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
 
 **Kind**: global class  
 
 * [Application](#Application)
     * [new Application([options])](#new_Application_new)
+    * [.GET|PUT|POST|PATCH|DELETE|DEL|ALL](#Application+GET|PUT|POST|PATCH|DELETE|DEL|ALL) ⇒ [<code>RouterGroup</code>](#RouterGroup)
+    * [.USE](#Application+USE)
     * [.get|put|post|patch|delete|del|all](#Application+get|put|post|patch|delete|del|all) ⇒ [<code>RouterGroup</code>](#RouterGroup)
-    * [.USE(fn)](#Application+USE)
     * [.use(fn)](#Application+use)
     * [.Listen()](#Application+Listen)
     * [.listen(...args)](#Application+listen)
@@ -40,8 +40,7 @@ Inherits from [`Koa`](https://koajs.com/).
 <a name="new_Application_new"></a>
 
 ### new Application([options])
-Initialize a new `Application`.
-Inherits from [`Koa`](https://koajs.com/).
+Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
 
 
 | Param | Type | Default | Description |
@@ -55,11 +54,10 @@ Inherits from [`Koa`](https://koajs.com/).
 | [options.maxIpsCount] | <code>Boolean</code> |  | max ips read from proxy ip header, default to 0 (means infinity) |
 | [options.prefix] | <code>String</code> |  | prefix router paths |
 
-<a name="Application+get|put|post|patch|delete|del|all"></a>
+<a name="Application+GET|PUT|POST|PATCH|DELETE|DEL|ALL"></a>
 
-### application.get\|put\|post\|patch\|delete\|del\|all ⇒ [<code>RouterGroup</code>](#RouterGroup)
-Create router verbs methods, where *verb* is one of the HTTP verbs such
-as `app.get()` or `app.post()`.
+### application.GET\|PUT\|POST\|PATCH\|DELETE\|DEL\|ALL ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router verbs methods.
 
 **Kind**: instance property of [<code>Application</code>](#Application)  
 
@@ -71,16 +69,27 @@ as `app.get()` or `app.post()`.
 
 <a name="Application+USE"></a>
 
-### application.USE(fn)
-Alias for:
-  Koa app.use()
+### application.USE
+Alias for koa `use()`.
 
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
+**Kind**: instance property of [<code>Application</code>](#Application)  
+
+| Param | Type |
+| --- | --- |
+| fn | <code>function</code> | 
+
+<a name="Application+get|put|post|patch|delete|del|all"></a>
+
+### application.get\|put\|post\|patch\|delete\|del\|all ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Create router verbs methods, where *verb* is one of the HTTP verbs suchas `app.get()` or `app.post()`.
+
+**Kind**: instance property of [<code>Application</code>](#Application)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| fn | <code>function</code> | middleware |
+| path | <code>String</code> |  |
+| [middleware] | <code>function</code> | route middleware(s) |
+| callback | <code>function</code> | route callback |
 
 <a name="Application+use"></a>
 
@@ -97,8 +106,7 @@ Register application level middleware.
 <a name="Application+Listen"></a>
 
 ### application.Listen()
-Alias for:
-  Koa app.listen()
+Alias for:  Koa app.listen()
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
@@ -117,8 +125,7 @@ Overwrite Koa app.listen()
 <a name="Application+listenTLS"></a>
 
 ### application.listenTLS(options, ...args)
-Shorthand for:
-  https.createServer(options, app.callback()).listen(...)
+Shorthand for:  https.createServer(options, app.callback()).listen(...)
 
 **Kind**: instance method of [<code>Application</code>](#Application)  
 **Access**: public  
@@ -139,7 +146,6 @@ Group router.
 | Param | Type | Description |
 | --- | --- | --- |
 | prefix | <code>String</code> | prefix router paths |
-
 
 <a name="Application+parse"></a>
 
@@ -273,14 +279,15 @@ Reset instance pool.
 
 * [RouterGroup](#RouterGroup)
     * [new RouterGroup([options], app)](#new_RouterGroup_new)
+    * [.GET|PUT|POST|PATCH|DELETE|DEL|ALL](#RouterGroup+GET|PUT|POST|PATCH|DELETE|DEL|ALL) ⇒ [<code>RouterGroup</code>](#RouterGroup)
+    * [.USE](#RouterGroup+USE) ⇒ [<code>RouterGroup</code>](#RouterGroup)
     * [.get|put|post|patch|delete|del|all](#RouterGroup+get|put|post|patch|delete|del|all) ⇒ [<code>RouterGroup</code>](#RouterGroup)
     * [.use(fn)](#RouterGroup+use) ⇒ [<code>RouterGroup</code>](#RouterGroup)
 
 <a name="new_RouterGroup_new"></a>
 
 ### new RouterGroup([options], app)
-Initialize a new `RouterGroup`.
-Inherits from [`koa-router`](https://github.com/ZijianHe/koa-router).
+Initialize a new `RouterGroup`.Inherits from [`koa-router`](https://github.com/ZijianHe/koa-router).
 
 
 | Param | Type | Description |
@@ -288,6 +295,32 @@ Inherits from [`koa-router`](https://github.com/ZijianHe/koa-router).
 | [options] | <code>Object</code> | Application options. |
 | [options.prefix] | <code>String</code> | prefix router paths. |
 | app | [<code>Application</code>](#Application) |  |
+
+<a name="RouterGroup+GET|PUT|POST|PATCH|DELETE|DEL|ALL"></a>
+
+### routerGroup.GET\|PUT\|POST\|PATCH\|DELETE\|DEL\|ALL ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router verbs methods.
+
+**Kind**: instance property of [<code>RouterGroup</code>](#RouterGroup)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> |  |
+| [middleware] | <code>function</code> | route middleware(s) |
+| callback | <code>function</code> | route callback |
+
+<a name="RouterGroup+USE"></a>
+
+### routerGroup.USE ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router `use()`.
+
+**Kind**: instance property of [<code>RouterGroup</code>](#RouterGroup)  
+
+| Param | Type |
+| --- | --- |
+| [path] | <code>String</code> | 
+| middleware | <code>function</code> | 
+| [...] | <code>function</code> | 
 
 <a name="RouterGroup+get|put|post|patch|delete|del|all"></a>
 

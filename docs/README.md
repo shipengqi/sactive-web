@@ -7,6 +7,7 @@
   - [$ctx, $next](#%24ctx%2C%20%24next)
   - [支持依赖注入的方法](%e6%94%af%e6%8c%81%e4%be%9d%e8%b5%96%e6%b3%a8%e5%85%a5%e7%9a%84%e6%96%b9%e6%b3%95)
   - [使用原生方法](%e4%bd%bf%e7%94%a8%e5%8e%9f%e7%94%9f%e6%96%b9%e6%b3%95)
+  - [与原生方法混合使用](%E4%B8%8E%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E6%B7%B7%E5%90%88%E4%BD%BF%E7%94%A8)
 - [应用级中间件](#%E5%BA%94%E7%94%A8%E7%BA%A7%E4%B8%AD%E9%97%B4%E4%BB%B6)
 - [路由](#%E8%B7%AF%E7%94%B1)
   - [路由分组](#%E8%B7%AF%E7%94%B1%E5%88%86%E7%BB%84)
@@ -129,6 +130,32 @@ app.use(($person, $next, $ctx) => {
 - `app.GET|PUT|POST|PATCH|DELETE|DEL|ALL` 是 koa-router 路由方法的别名
 
 > **别名都是原生方法的大写形式**。
+
+```javascript
+const App = require('sactive-web');
+const koaBody = require('koa-body');
+
+const app = new App();
+// 使用原生的 USE 方法
+app.USE(koaBody());
+
+app.group('v1').post('/users/:name', ($ctx, $next, $name) => {
+  $ctx.body = $ctx.request.body;
+});
+
+app.listen(8080);
+```
+
+### 与原生方法混合使用
+```javascript
+app.group('/v3/')
+  .get('/users/:name', ($ctx, $name, $next) => {
+    $ctx.body = {'name': $ctx.params.name, 'testname': $name};
+  })
+  .POST('/users/:name', (ctx, next) => {
+    ctx.body = ctx.request.body;
+   })
+```
 
 ## 应用级中间件
 `app.use` 重写了 [koa](https://koajs.com/) 的 `use` 方法。
