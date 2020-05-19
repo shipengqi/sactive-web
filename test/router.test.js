@@ -383,11 +383,20 @@ describe('Router tests', () => {
       const app = new App();
       app.bindAny('name1', CONSTANT_MOCK.INJECT_NAME + 1);
       app.use(($ctx, $name1, $next) => {
+        if ($ctx.path === '/v1/users/appmiddleware') {
+          throw new Error('app middleware error');
+        }
         $ctx.name1 = $name1;
         $next();
       });
       app.bindAny('name2', CONSTANT_MOCK.INJECT_NAME + 2);
       app.group('v1')
+        .use(async ($ctx, $next, $name2) => {
+          if ($ctx.path === '/v1/users/middleware') {
+            throw new Error('router middleware error');
+          }
+          $next();
+        })
         .get('/users/:name', ($ctx, $next, $name2) => {
           $ctx.body = {'name': $ctx.params.name, 'name1': $ctx.name1, 'name2': $name2};
           $next();
@@ -469,6 +478,32 @@ describe('Router tests', () => {
             code: 500,
             data: {},
             msg: 'xiaoming'
+          });
+          done();
+        });
+    });
+    it('Get response: {code: 500, data: {}, msg: router middleware error}', done => {
+      request(server)
+        .get('/v1/users/middleware')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({
+            code: 500,
+            data: {},
+            msg: 'router middleware error'
+          });
+          done();
+        });
+    });
+    it('Get response: {code: 500, data: {}, msg: app middleware error}', done => {
+      request(server)
+        .get('/v1/users/appmiddleware')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.eql({
+            code: 500,
+            data: {},
+            msg: 'app middleware error'
           });
           done();
         });
