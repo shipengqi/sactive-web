@@ -18,8 +18,9 @@ Expose `Application` class.Inherits from [`Koa`](https://koajs.com/).
 
 * [Application](#Application)
     * [new Application([options])](#new_Application_new)
+    * [.GET|PUT|POST|PATCH|DELETE|DEL|ALL](#Application+GET|PUT|POST|PATCH|DELETE|DEL|ALL) ⇒ [<code>RouterGroup</code>](#RouterGroup)
+    * [.USE](#Application+USE)
     * [.get|put|post|patch|delete|del|all](#Application+get|put|post|patch|delete|del|all) ⇒ [<code>RouterGroup</code>](#RouterGroup)
-    * [.Use(fn)](#Application+Use)
     * [.use(fn)](#Application+use)
     * [.Listen()](#Application+Listen)
     * [.listen(...args)](#Application+listen)
@@ -53,6 +54,30 @@ Initialize a new `Application`.Inherits from [`Koa`](https://koajs.com/).
 | [options.maxIpsCount] | <code>Boolean</code> |  | max ips read from proxy ip header, default to 0 (means infinity) |
 | [options.prefix] | <code>String</code> |  | prefix router paths |
 
+<a name="Application+GET|PUT|POST|PATCH|DELETE|DEL|ALL"></a>
+
+### application.GET\|PUT\|POST\|PATCH\|DELETE\|DEL\|ALL ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router verbs methods.
+
+**Kind**: instance property of [<code>Application</code>](#Application)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> |  |
+| [middleware] | <code>function</code> | route middleware(s) |
+| callback | <code>function</code> | route callback |
+
+<a name="Application+USE"></a>
+
+### application.USE
+Alias for koa `use()`.
+
+**Kind**: instance property of [<code>Application</code>](#Application)  
+
+| Param | Type |
+| --- | --- |
+| fn | <code>function</code> | 
+
 <a name="Application+get|put|post|patch|delete|del|all"></a>
 
 ### application.get\|put\|post\|patch\|delete\|del\|all ⇒ [<code>RouterGroup</code>](#RouterGroup)
@@ -65,18 +90,6 @@ Create router verbs methods, where *verb* is one of the HTTP verbs suchas `app.
 | path | <code>String</code> |  |
 | [middleware] | <code>function</code> | route middleware(s) |
 | callback | <code>function</code> | route callback |
-
-<a name="Application+Use"></a>
-
-### application.Use(fn)
-Alias for:  Koa app.use()
-
-**Kind**: instance method of [<code>Application</code>](#Application)  
-**Access**: public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>function</code> | middleware |
 
 <a name="Application+use"></a>
 
@@ -266,6 +279,8 @@ Reset instance pool.
 
 * [RouterGroup](#RouterGroup)
     * [new RouterGroup([options], app)](#new_RouterGroup_new)
+    * [.GET|PUT|POST|PATCH|DELETE|DEL|ALL](#RouterGroup+GET|PUT|POST|PATCH|DELETE|DEL|ALL) ⇒ [<code>RouterGroup</code>](#RouterGroup)
+    * [.USE](#RouterGroup+USE) ⇒ [<code>RouterGroup</code>](#RouterGroup)
     * [.get|put|post|patch|delete|del|all](#RouterGroup+get|put|post|patch|delete|del|all) ⇒ [<code>RouterGroup</code>](#RouterGroup)
     * [.use(fn)](#RouterGroup+use) ⇒ [<code>RouterGroup</code>](#RouterGroup)
 
@@ -280,6 +295,32 @@ Initialize a new `RouterGroup`.Inherits from [`koa-router`](https://github.com/
 | [options] | <code>Object</code> | Application options. |
 | [options.prefix] | <code>String</code> | prefix router paths. |
 | app | [<code>Application</code>](#Application) |  |
+
+<a name="RouterGroup+GET|PUT|POST|PATCH|DELETE|DEL|ALL"></a>
+
+### routerGroup.GET\|PUT\|POST\|PATCH\|DELETE\|DEL\|ALL ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router verbs methods.
+
+**Kind**: instance property of [<code>RouterGroup</code>](#RouterGroup)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> |  |
+| [middleware] | <code>function</code> | route middleware(s) |
+| callback | <code>function</code> | route callback |
+
+<a name="RouterGroup+USE"></a>
+
+### routerGroup.USE ⇒ [<code>RouterGroup</code>](#RouterGroup)
+Alias for koa-router `use()`.
+
+**Kind**: instance property of [<code>RouterGroup</code>](#RouterGroup)  
+
+| Param | Type |
+| --- | --- |
+| [path] | <code>String</code> | 
+| middleware | <code>function</code> | 
+| [...] | <code>function</code> | 
 
 <a name="RouterGroup+get|put|post|patch|delete|del|all"></a>
 
