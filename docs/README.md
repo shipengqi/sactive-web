@@ -123,7 +123,7 @@ app.use(($person, $next, $ctx) => {
 - `app.use`
 - `app.get|put|post|patch|delete|del|all` 等路由方法
 
-> **注意，如果你的中间件或者路由处理函数不需要注入依赖，使用 `app.USE`**。
+> **注意，如果你的中间件或者路由处理函数不需要注入依赖，[使用原生方法](#%e4%bd%bf%e7%94%a8%e5%8e%9f%e7%94%9f%e6%96%b9%e6%b3%95)**。
 
 ### 使用原生方法
 - `app.USE` 是 koa 原生 `use` 方法的别名
@@ -300,7 +300,7 @@ app.interceptors.response.use(ctx => {
 
 ## allowedMethods
 
-使用 `app.USE` 注册 koa-router 的 `allowedMethods` 中间件
+使用 `app.USE` 注册 koa-router 的 `allowedMethods` 中间件：
 ```javascript
 app.USE(app.router.allowedMethods());
 ```
