@@ -382,7 +382,7 @@ describe('Router tests', () => {
     before(() => {
       const app = new App();
       app.bindAny('name1', CONSTANT_MOCK.INJECT_NAME + 1);
-      app.use(($ctx, $name1, $next) => {
+      app.use(async ($ctx, $name1, $next) => {
         if ($ctx.path === '/v1/users/appmiddleware') {
           throw new Error('app middleware error');
         }
@@ -400,10 +400,10 @@ describe('Router tests', () => {
         .get('/users/:name', ($ctx, $next, $name2) => {
           $ctx.body = {'name': $ctx.params.name, 'name1': $ctx.name1, 'name2': $name2};
           $next();
-        }, ($ctx, $next, $name3) => {
+        }, async ($ctx, $next, $name3) => {
           $ctx.body.name3 = $name3;
           $next();
-        }, ($ctx, $next, $name4) => {
+        }, async ($ctx, $next, $name4) => {
           $ctx.name4 = $name4;
           if ($ctx.params.name === CONSTANT_MOCK.URL_NAME) {
             throw new Error($ctx.params.name);
