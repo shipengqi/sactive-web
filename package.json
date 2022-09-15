@@ -38,7 +38,7 @@
   "devDependencies": {
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
-    "eslint": "^4.19.1",
+    "eslint": "^8.23.1",
     "eslint-config-sactive": "^2.0.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.12.0",
