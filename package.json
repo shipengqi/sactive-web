@@ -47,7 +47,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "jsdoc-to-markdown": "^7.1.1",
     "koa-body": "^4.1.2",
-    "mocha": "^7.1.2",
+    "mocha": "^10.2.0",
     "nyc": "^15.0.1",
     "supertest": "^4.0.2"
   },
